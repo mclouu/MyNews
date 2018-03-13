@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="8dp"
+        android:layout_weight="1"
+        android:background="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/imageView"
+        android:layout_weight="1"
+        android:paddingTop="9dp"
+        android:text="Sports Hokey"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_weight="1"
+        android:paddingEnd="8dp"
+        android:paddingTop="9dp"
+        android:text="13/03/18"
+        android:textColor="@color/colorBlack" />
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_toEndOf="@+id/imageView"
+        android:layout_weight="1"
+        android:maxLines="2"
+        android:paddingEnd="8dp"
+        android:paddingTop="8dp"
+        android:text="Rangers Fall to the Senators and Are Left to Ponder What Might Have Been - jejejeje ejeejejejejeeke"
+        android:textSize="20dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/imageView"
+        android:layout_marginStart="100dp"
+        android:background="@color/colorGrey" />
+</RelativeLayout>
