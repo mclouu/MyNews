@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notifications">Notifications</string>
+    <string name="Help">Aide</string>
+    <string name="about">À porpos</string>
+    <string name="NEWS">Nouvelle</string>
+    <string name="EMPTY">Vide</string>
+    <string name="TOPSTORIES">Populaire</string>
+</resources>
