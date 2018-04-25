@@ -1,4 +1,8 @@
-package com.romain.mathieu.mynews.Model.API;
+/*
+ * Created by Romain Mathieu => https://github.com/mclouu
+ */
+
+package com.romain.mathieu.mynews.Model.API.TopStories;
 
 import com.google.gson.annotations.SerializedName;
 
