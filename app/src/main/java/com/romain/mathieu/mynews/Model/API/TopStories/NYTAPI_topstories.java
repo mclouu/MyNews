@@ -1,10 +1,14 @@
-package com.romain.mathieu.mynews.Model.API;
+/*
+ * Created by Romain Mathieu => https://github.com/mclouu
+ */
+
+package com.romain.mathieu.mynews.Model.API.TopStories;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class NYTAPI {
+public class NYTAPI_topstories {
 
     @SerializedName("copyright")
     private String copyright;
@@ -51,7 +55,7 @@ public class NYTAPI {
     @Override
     public String toString() {
         return
-                "NYTAPI{" +
+                "NYTAPI_topstories{" +
                         "copyright = '" + copyright + '\'' +
                         ",last_updated = '" + lastUpdated + '\'' +
                         ",section = '" + section + '\'' +
