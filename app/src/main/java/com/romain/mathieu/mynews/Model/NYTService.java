@@ -31,9 +31,6 @@ public interface NYTService {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build();
 
-    //@GET("svc/mostpopular/v2/{mode}/all-sections/1.json?api-key=e5ace90626ec4c7495500a0dbb327980")
-    //Call<List<>> getPostInfo(@path("mode") String mode);
-
     @GET("svc/topstories/v2/{section}.json?api-key=e5ace90626ec4c7495500a0dbb327980")
     Observable<List<NYTAPI_topstories>> getPostInfo(@Path("section") String section);
 }
