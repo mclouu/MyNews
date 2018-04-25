@@ -1,4 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Created by Romain Mathieu => https://github.com/mclouu
+  -->
+
 <resources>
     <string name="notifications">Notifications</string>
     <string name="Help">Aide</string>
@@ -6,4 +9,5 @@
     <string name="NEWS">Nouvelle</string>
     <string name="EMPTY">Vide</string>
     <string name="TOPSTORIES">Populaire</string>
+    <string name="error_network">Problème de réseau</string>
 </resources>

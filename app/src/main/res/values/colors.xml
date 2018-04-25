@@ -1,8 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Created by Romain Mathieu => https://github.com/mclouu
+  -->
+
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#00BBD3</color>
+    <color name="colorPrimaryDark">#6ba6ae</color>
+    <color name="colorAccent">#cecece</color>
+
     <color name="colorGrey">#858C93</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorWithe">#FFF</color>
+
+
+    <!-- COLOR VIEWPAGER -->
+    <color name="tabSelected">#FFF</color> <!-- FOR TEXT SELECTED -->
+    <color name="tabIndicator">#F8E71C</color> <!-- FOR BAR OF SELECTED -->
+    <color name="tabBackground">#00BBD3</color> <!-- FOR BACKGROUND -->
+    <color name="tabText">#D4E0F8</color>  <!-- FOR TEXT NON-SELECTED -->
 </resources>

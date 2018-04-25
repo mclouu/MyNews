@@ -1,3 +1,7 @@
+<!--
+  ~ Created by Romain Mathieu => https://github.com/mclouu
+  -->
+
 <resources>
     <string name="app_name">MyNews</string>
     <string name="notifications">Notifications</string>
@@ -9,4 +13,5 @@
     <string name="NEWS">News</string>
     <string name="EMPTY">Empty</string>
     <string name="TOPSTORIES">TopStories</string>
+    <string name="error_network">Network error</string>
 </resources>
