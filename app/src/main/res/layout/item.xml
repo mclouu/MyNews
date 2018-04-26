@@ -3,6 +3,7 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingBottom="8dp">
@@ -22,7 +23,7 @@
         android:layout_toEndOf="@+id/thumbnail"
         android:layout_weight="1"
         android:paddingTop="9dp"
-        android:text="Sports Hokey"
+        android:text="Jackson, Macron, Golden State Killer: Your Wednesday Evening Briefing"
         android:textColor="@color/colorBlack"
         android:textStyle="bold" />
 
@@ -31,14 +32,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_below="@id/subTitle"
         android:layout_weight="1"
         android:paddingEnd="8dp"
         android:paddingTop="9dp"
-        android:text="13/03/18"
+        android:text="2018-04-25T18:57:12-04:00"
         android:textColor="@color/colorBlack" />
 
     <TextView
-        android:id="@+id/content"
+        android:id="@+id/subTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
@@ -47,13 +49,13 @@
         android:maxLines="2"
         android:paddingEnd="8dp"
         android:paddingTop="8dp"
-        android:text="Rangers Fall to the Senators and Are Left to Ponder What Might Have Been - jejejeje ejeejejejejeeke"
+        android:text="Here’s what you need to know at the end of the day."
         android:textSize="20dp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/thumbnail"
+        android:layout_below="@id/date"
         android:layout_marginStart="100dp"
         android:background="@color/colorGrey" />
 </RelativeLayout>
