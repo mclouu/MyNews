@@ -4,9 +4,8 @@
 
 package com.romain.mathieu.mynews.Model;
 
-import com.romain.mathieu.mynews.Model.API.TopStories.NYTAPI_topstories;
+import com.romain.mathieu.mynews.Model.API.TopStories.NYTAPITopstories;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -15,7 +14,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class NYTStreams {
 
-    public static Observable<List<NYTAPI_topstories>> streamFetchSection(String section) {
+    public static Observable<NYTAPITopstories> streamFetchSection(String section) {
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
         return nytService.getPostInfo(section)
                 .subscribeOn(Schedulers.io())
