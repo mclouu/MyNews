@@ -7,19 +7,17 @@ package com.romain.mathieu.mynews.Model;
 
 public class CardData {
 
-    private String title, subtitle, imageURL;
+    private String title, subtitle, date, imageURL;
 
 
-    public CardData(String mTitle, String mSubtitle) {
+    public CardData(String mTitle, String mSubtitle, String mDate, String mImageURL) {
 
         this.title = mTitle;
         this.subtitle = mSubtitle;
-        //this.imageURL = mImageURL;
+        this.date = mDate;
+        this.imageURL = mImageURL;
     }
 
-//    public String getImageURL() {
-//        return imageURL;
-//    }
 
     public String getSubtitle() {
         return subtitle;
@@ -27,5 +25,13 @@ public class CardData {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getImageURL() {
+        return imageURL;
     }
 }
