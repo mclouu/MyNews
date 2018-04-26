@@ -5,6 +5,7 @@
 package com.romain.mathieu.mynews.View;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -15,57 +16,85 @@ import android.widget.TextView;
 
 import com.romain.mathieu.mynews.Model.CardData;
 import com.romain.mathieu.mynews.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-/**
- * Created by romain on 17/03/2018.
- */
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class MyAdapter extends RecyclerView.Adapter {
 
-    static Context context;
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ArticleViewHolder> {
 
-    private ArrayList<CardData> dataset;
+    private Context context;
+    private ArrayList<CardData> mdatas;
 
+    public MyAdapter(Context context) {
+        this.context = context;
+    }
 
     public MyAdapter(ArrayList<CardData> mlist) {
-        this.dataset = mlist;
+        this.mdatas = mlist;
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ArticleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
-        return new ImageTypeViewHolder(view);
+        return new ArticleViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        final CardData object = dataset.get(position);
+    public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
+        final CardData object = mdatas.get(position);
 
 
-        ((ImageTypeViewHolder) holder).title.setText(Html.fromHtml(object.getTitle()));
-        ((ImageTypeViewHolder) holder).subtitle.setText(Html.fromHtml(object.getSubtitle()));
+        holder.title.setText(Html.fromHtml(object.getTitle()));
+        holder.subtitle.setText(Html.fromHtml(object.getSubtitle()));
+        holder.date.setText(Html.fromHtml(object.getDate()));
+
+        String url = object.getImageURL();
+
+        Picasso.get()
+                .load(url)
+                .into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
-        return dataset.size();
+        if (mdatas != null) {
+            return mdatas.size();
+        }
+        return 0;
     }
 
-    public static class ImageTypeViewHolder extends RecyclerView.ViewHolder {
+    class ArticleViewHolder extends RecyclerView.ViewHolder {
 
-
-        TextView title, subtitle;
+        @BindView(R.id.thumbnail)
         ImageView imageView;
+        @BindView(R.id.title)
+        TextView title;
+        @BindView(R.id.subTitle)
+        TextView subtitle;
+        @BindView(R.id.date)
+        TextView date;
 
-        ImageTypeViewHolder(View itemView) {
+
+        ArticleViewHolder(final View itemView) {
             super(itemView);
-
+            ButterKnife.bind(this, itemView);
             context = itemView.getContext();
-            this.title = itemView.findViewById(R.id.title);
-            this.subtitle = itemView.findViewById(R.id.content);
-            this.imageView = itemView.findViewById(R.id.thumbnail);
+        }
+
+        @OnClick(R.id.relativeLayout)
+        void submit(View view) {
+            int position = getAdapterPosition();
+
+//            Intent intent = new Intent(context, ArticleActivity.class);
+//            final CardData object = mdatas.get(position);
+//            intent.putExtra("titleArticle", String.valueOf(Html.fromHtml(object.getTitle())));
+//            intent.putExtra("subtitleArticle", String.valueOf(Html.fromHtml(object.getSubtitle())));
+//            context.startActivity(intent);
         }
     }
 }
