@@ -57,6 +57,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ArticleViewHolder>
 
         Picasso.get()
                 .load(url)
+                .centerCrop()
+                .resize(100, 100)
+                .placeholder(R.drawable.imagedownloading)
+                .error(R.drawable.imageempty)
                 .into(holder.imageView);
     }
 
