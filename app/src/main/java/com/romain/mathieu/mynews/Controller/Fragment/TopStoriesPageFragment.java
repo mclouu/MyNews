@@ -110,7 +110,7 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
         this.updateUIWhenStartingHTTPRequest();
 
         // 1.2 - Execute the stream subscribing to Observable defined inside GithubStream
-        this.disposable = NYTStreams.streamFetchSection("technology").subscribeWith(
+        this.disposable = NYTStreams.streamFetchSection("home").subscribeWith(
                 new DisposableObserver<NYTAPITopstories>() {
                     @Override
                     public void onNext(NYTAPITopstories section) {
@@ -157,11 +157,20 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
         }
 
         int num_results = sections.getNumResults();
+        Log.e("num", String.valueOf(num_results));
         for (int i = 0; i < num_results; i++) {
             String section1 = sections.getSection();
             String section2 = sections.getResults().get(i).getSection();
             String subTitle = sections.getResults().get(i).getAbstract();
-            String imageUrl = sections.getResults().get(i).getMultimedia().get(4).getUrl();
+            //String imageUrl = sections.getResults().get(i).getMultimedia().get(4).getUrl();
+            String imageUrl;
+            if (sections.getResults().get(i).getMultimedia().isEmpty()) {
+                imageUrl = "https://image.noelshack.com/fichiers/2018/17/7/1524955130-empty-image-thumb2.png";
+            } else {
+                imageUrl = sections.getResults().get(i).getMultimedia().get(4).getUrl();
+            }
+
+            Log.e("image", imageUrl);
             String date = sections.getResults().get(i).getCreatedDate();
             date = date.replace("T", " - ");
 
@@ -169,7 +178,7 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
                     section1 + " > " + section2,
                     subTitle + "",
                     date + "",
-                    imageUrl + ""));
+                    imageUrl));
         }
         adapter.notifyDataSetChanged();
     }
