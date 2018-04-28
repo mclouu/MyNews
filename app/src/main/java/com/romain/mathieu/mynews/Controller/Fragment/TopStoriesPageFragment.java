@@ -150,35 +150,33 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
         //this.textView.setText(response);
     }
 
-    private void updateUIWithListOfArticle(NYTAPITopstories sections) {
+    private void updateUIWithListOfArticle(NYTAPITopstories response) {
 
         if (list != null) {
             list.clear();
         }
 
-        int num_results = sections.getNumResults();
-        Log.e("num", String.valueOf(num_results));
+        int num_results = response.getNumResults();
         for (int i = 0; i < num_results; i++) {
-            String section1 = sections.getSection();
-            String section2 = sections.getResults().get(i).getSection();
-            String subTitle = sections.getResults().get(i).getAbstract();
-            //String imageUrl = sections.getResults().get(i).getMultimedia().get(4).getUrl();
-            String imageUrl;
-            if (sections.getResults().get(i).getMultimedia().isEmpty()) {
-                imageUrl = "https://image.noelshack.com/fichiers/2018/17/7/1524955130-empty-image-thumb2.png";
+            String section1 = response.getSection();
+            String section2 = response.getResults().get(i).getSection();
+            String subTitle = response.getResults().get(i).getAbstract();
+            String imageURL;
+            if (response.getResults().get(i).getMultimedia().isEmpty()) {
+                imageURL = "https://image.noelshack.com/fichiers/2018/17/7/1524955130-empty-image-thumb2.png";
             } else {
-                imageUrl = sections.getResults().get(i).getMultimedia().get(4).getUrl();
+                imageURL = response.getResults().get(i).getMultimedia().get(4).getUrl();
             }
-
-            Log.e("image", imageUrl);
-            String date = sections.getResults().get(i).getCreatedDate();
+            String articleURL = response.getResults().get(i).getUrl();
+            String date = response.getResults().get(i).getCreatedDate();
             date = date.replace("T", " - ");
 
             list.add(new CardData(
                     section1 + " > " + section2,
                     subTitle + "",
                     date + "",
-                    imageUrl));
+                    imageURL + "",
+                    articleURL + ""));
         }
         adapter.notifyDataSetChanged();
     }
