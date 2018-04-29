@@ -160,6 +160,7 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
         for (int i = 0; i < num_results; i++) {
             String section1 = response.getSection();
             String section2 = response.getResults().get(i).getSection();
+            // Omegaa
             String subTitle = response.getResults().get(i).getAbstract();
             String imageURL;
             if (response.getResults().get(i).getMultimedia().isEmpty()) {
