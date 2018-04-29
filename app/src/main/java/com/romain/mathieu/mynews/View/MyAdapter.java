@@ -5,6 +5,7 @@
 package com.romain.mathieu.mynews.View;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.romain.mathieu.mynews.Controller.Activity.WebViewActivity;
 import com.romain.mathieu.mynews.Model.CardData;
 import com.romain.mathieu.mynews.R;
 import com.squareup.picasso.Picasso;
@@ -94,11 +96,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ArticleViewHolder>
         void submit(View view) {
             int position = getAdapterPosition();
 
-//            Intent intent = new Intent(context, ArticleActivity.class);
-//            final CardData object = mdatas.get(position);
-//            intent.putExtra("titleArticle", String.valueOf(Html.fromHtml(object.getTitle())));
-//            intent.putExtra("subtitleArticle", String.valueOf(Html.fromHtml(object.getSubtitle())));
-//            context.startActivity(intent);
+            Intent intent = new Intent(context, WebViewActivity.class);
+            final CardData object = mdatas.get(position);
+            intent.putExtra("urlArticle", object.getArticleURL());
+            context.startActivity(intent);
         }
     }
 }
