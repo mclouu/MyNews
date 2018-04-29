@@ -23,7 +23,7 @@
         android:layout_toEndOf="@+id/thumbnail"
         android:layout_weight="1"
         android:paddingTop="9dp"
-        android:text="Jackson, Macron, Golden State Killer: Your Wednesday Evening Briefing"
+        android:text=""
         android:textColor="@color/colorBlack"
         android:textStyle="bold" />
 
@@ -36,7 +36,7 @@
         android:layout_weight="1"
         android:paddingEnd="8dp"
         android:paddingTop="9dp"
-        android:text="2018-04-25T18:57:12-04:00"
+        android:text=""
         android:textColor="@color/colorBlack" />
 
     <TextView
@@ -49,7 +49,7 @@
         android:maxLines="2"
         android:paddingEnd="8dp"
         android:paddingTop="8dp"
-        android:text="Here’s what you need to know at the end of the day."
+        android:text=""
         android:textSize="20dp" />
 
     <View
