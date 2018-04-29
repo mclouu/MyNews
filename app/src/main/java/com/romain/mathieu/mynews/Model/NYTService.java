@@ -5,6 +5,7 @@
 package com.romain.mathieu.mynews.Model;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.romain.mathieu.mynews.Model.API.MostPopular.NYTAPIMostPopular;
 import com.romain.mathieu.mynews.Model.API.TopStories.NYTAPITopstories;
 
 import io.reactivex.Observable;
@@ -30,5 +31,8 @@ public interface NYTService {
             .build();
 
     @GET("svc/topstories/v2/{section}.json?api-key=e5ace90626ec4c7495500a0dbb327980")
-    Observable<NYTAPITopstories> getPostInfo(@Path("section") String section);
+    Observable<NYTAPITopstories> getPostTop(@Path("section") String section);
+
+    @GET("svc/mostpopular/v2/mostviewed/{section}/30.json?api-key=e5ace90626ec4c7495500a0dbb327980")
+    Observable<NYTAPIMostPopular> getPostMost(@Path("section") String section); //all-sections
 }
