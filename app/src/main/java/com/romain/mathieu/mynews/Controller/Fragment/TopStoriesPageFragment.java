@@ -110,7 +110,7 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
         this.updateUIWhenStartingHTTPRequest();
 
         // 1.2 - Execute the stream subscribing to Observable defined inside GithubStream
-        this.disposable = NYTStreams.streamFetchSection("home").subscribeWith(
+        this.disposable = NYTStreams.streamFetchTop("home").subscribeWith(
                 new DisposableObserver<NYTAPITopstories>() {
                     @Override
                     public void onNext(NYTAPITopstories section) {
