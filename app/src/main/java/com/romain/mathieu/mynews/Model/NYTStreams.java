@@ -4,6 +4,7 @@
 
 package com.romain.mathieu.mynews.Model;
 
+import com.romain.mathieu.mynews.Model.API.ArticleSearch.NYTAPIArticleSearch;
 import com.romain.mathieu.mynews.Model.API.MostPopular.NYTAPIMostPopular;
 import com.romain.mathieu.mynews.Model.API.TopStories.NYTAPITopstories;
 
@@ -26,6 +27,14 @@ public class NYTStreams {
     public static Observable<NYTAPIMostPopular> streamFetchMost(String section) {
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
         return nytService.getPostMost(section)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .timeout(10, TimeUnit.SECONDS);
+    }
+
+    public static Observable<NYTAPIArticleSearch> streamFetchArticle() {
+        NYTService nytService = NYTService.retrofit.create(NYTService.class);
+        return nytService.getPostArticle()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS);
