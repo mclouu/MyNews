@@ -1,0 +1,34 @@
+<!--
+  ~ Created by Romain Mathieu => https://github.com/mclouu
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.romain.mathieu.mynews.Controller.Activity.MainActivity">
+
+    <ProgressBar
+        android:id="@+id/articlesearch_progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/articlesearch_swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/articlesearch_progressBar">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/articlesearch_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/most_popular_progressBar"
+            android:layout_margin="8dp"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/item" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</RelativeLayout>
