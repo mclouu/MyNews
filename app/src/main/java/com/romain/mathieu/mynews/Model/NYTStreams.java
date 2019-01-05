@@ -11,8 +11,9 @@ import com.romain.mathieu.mynews.Model.API.TopStories.NYTAPITopstories;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+
+import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 
 public class NYTStreams {
 
@@ -20,7 +21,7 @@ public class NYTStreams {
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
         return nytService.getPostTop(section)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(mainThread())
                 .timeout(10, TimeUnit.SECONDS);
     }
 
@@ -28,7 +29,7 @@ public class NYTStreams {
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
         return nytService.getPostMost(section)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(mainThread())
                 .timeout(10, TimeUnit.SECONDS);
     }
 
@@ -36,7 +37,7 @@ public class NYTStreams {
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
         return nytService.getPostArticle()
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(mainThread())
                 .timeout(10, TimeUnit.SECONDS);
     }
 }
