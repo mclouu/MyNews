@@ -61,8 +61,8 @@ public class MostPopularFragment extends Fragment implements SwipeRefreshLayout.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_most_popular, container, false);
-
         context = container.getContext();
 
         ButterKnife.bind(this, view);
@@ -107,8 +107,6 @@ public class MostPopularFragment extends Fragment implements SwipeRefreshLayout.
 
     // 1 - Execute our Stream
     private void executeHttpRequestWithRetrofit() {
-        // 1.1 - Update UI
-        this.updateUIWhenStartingHTTPRequest();
 
         // 1.2 - Execute the stream subscribing to Observable defined inside GithubStream
         this.disposable = NYTStreams.streamFetchMost("all-sections").subscribeWith(
@@ -116,7 +114,7 @@ public class MostPopularFragment extends Fragment implements SwipeRefreshLayout.
                     @Override
                     public void onNext(NYTAPIMostPopular section) {
                         Log.e("TAG", "onNext");
-                        // 1.3 - Update UI with topstories
+                        // 1.3 - Update UI with most popular stories
                         updateUIWithListOfArticle(section);
                     }
 
@@ -143,13 +141,7 @@ public class MostPopularFragment extends Fragment implements SwipeRefreshLayout.
     // UPDATE UI
     // -------------------
 
-    private void updateUIWhenStartingHTTPRequest() {
-        //this.textView.setText("Downloading...");
-    }
 
-    private void updateUIWhenStopingHTTPRequest(String response) {
-        //this.textView.setText(response);
-    }
 
     private void updateUIWithListOfArticle(NYTAPIMostPopular response) {
 

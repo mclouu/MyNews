@@ -63,7 +63,6 @@ public class ArticleSearchFragment extends Fragment implements SwipeRefreshLayou
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_articlesearch, container, false);
-
         context = container.getContext();
 
         ButterKnife.bind(this, view);
@@ -108,8 +107,6 @@ public class ArticleSearchFragment extends Fragment implements SwipeRefreshLayou
 
     // 1 - Execute our Stream
     private void executeHttpRequestWithRetrofit() {
-        // 1.1 - Update UI
-        this.updateUIWhenStartingHTTPRequest();
 
         // 1.2 - Execute the stream subscribing to Observable defined inside GithubStream
         this.disposable = NYTStreams.streamFetchArticle().subscribeWith(
@@ -117,7 +114,7 @@ public class ArticleSearchFragment extends Fragment implements SwipeRefreshLayou
                     @Override
                     public void onNext(NYTAPIArticleSearch section) {
                         Log.e("TAG", "onNext");
-                        // 1.3 - Update UI with topstories
+                        // 1.3 - Update UI with technology stories
                         updateUIWithListOfArticle(section);
                     }
 
@@ -125,7 +122,7 @@ public class ArticleSearchFragment extends Fragment implements SwipeRefreshLayou
                     public void onError(Throwable e) {
                         progressBar.setVisibility(View.GONE);
                         Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
-                        Log.e("tdb", "On Error \n" + Log.getStackTraceString(e));
+                        Log.e("TAG", "On Error \n" + Log.getStackTraceString(e));
                     }
 
                     @Override
@@ -144,14 +141,6 @@ public class ArticleSearchFragment extends Fragment implements SwipeRefreshLayou
     // UPDATE UI
     // -------------------
 
-    private void updateUIWhenStartingHTTPRequest() {
-        //this.textView.setText("Downloading...");
-    }
-
-    private void updateUIWhenStopingHTTPRequest(String response) {
-        //this.textView.setText(response);
-    }
-
     private void updateUIWithListOfArticle(NYTAPIArticleSearch response) {
 
         if (list != null) {
@@ -163,12 +152,11 @@ public class ArticleSearchFragment extends Fragment implements SwipeRefreshLayou
             String section1 = response.getResponse().getDocs().get(i).getNewDesk();
             String title = response.getResponse().getDocs().get(i).getSnippet();
             String imageURL;
-//            if (response.getResponse().getDocs().get(i).getMultimedia().isEmpty()) {
-//                imageURL = "https://image.noelshack.com/fichiers/2018/17/7/1524955130-empty-image-thumb2.png";
-//            } else {
+            if (response.getResponse().getDocs().get(i).getMultimedia().isEmpty()) {
+                imageURL = "https://image.noelshack.com/fichiers/2018/17/7/1524955130-empty-image-thumb2.png";
+            } else {
             imageURL = response.getResponse().getDocs().get(i).getMultimedia().get(0).getUrl();
-            Log.e("image", response.getResponse().getDocs().get(i).getMultimedia().get(0).getUrl());
-//            }
+            }
             String articleURL = response.getResponse().getDocs().get(i).getWebUrl();
             String date = response.getResponse().getDocs().get(i).getPubDate();
             date = date.replace("T", " - ");

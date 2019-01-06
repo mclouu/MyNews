@@ -77,8 +77,6 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
         this.executeHttpRequestWithRetrofit();
 
         return view;
-
-
     }
 
     @Override
@@ -106,8 +104,6 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
 
     // 1 - Execute our Stream
     private void executeHttpRequestWithRetrofit() {
-        // 1.1 - Update UI
-        this.updateUIWhenStartingHTTPRequest();
 
         // 1.2 - Execute the stream subscribing to Observable defined inside GithubStream
         this.disposable = NYTStreams.streamFetchTop("home").subscribeWith(
@@ -141,15 +137,6 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
     // -------------------
     // UPDATE UI
     // -------------------
-
-    private void updateUIWhenStartingHTTPRequest() {
-        //this.textView.setText("Downloading...");
-    }
-
-    private void updateUIWhenStopingHTTPRequest(String response) {
-        //this.textView.setText(response);
-    }
-
     private void updateUIWithListOfArticle(NYTAPITopstories response) {
 
         if (list != null) {
