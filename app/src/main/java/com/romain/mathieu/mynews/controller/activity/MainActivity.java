@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.menu_search:
-                Intent myIntent = new Intent(MainActivity.this, SearchActivity.class);
+                Intent myIntent = new Intent(MainActivity.this, SearchAndNotifyActivity.class);
                 startActivity(myIntent);
                 return true;
         }
