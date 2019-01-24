@@ -4,31 +4,32 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import com.facebook.stetho.Stetho;
 import com.romain.mathieu.mynews.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.romain.mathieu.mynews.model.MyConstant.BUNDLED_EXTRA;
+import static com.romain.mathieu.mynews.model.MyConstant.NOTIF_ID;
+import static com.romain.mathieu.mynews.model.MyConstant.SEARCH_ID;
 
 
 public class SearchAndNotifyActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-//    @BindView(R.id.recyclerView)
+    //    @BindView(R.id.recyclerView)
 //    RecyclerView recyclerView;
 //
 //    @BindView(R.id.search_editText)
@@ -37,6 +38,9 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     EditText datedebut;
     @BindView(R.id.end_date_edittext)
     EditText datefin;
+
+    @BindView(R.id.notification_switch)
+    Switch switchNotif;
 //
 //    @BindView(R.id.checkBox_Art)
 //    CheckBox checkBox_Art;
@@ -53,7 +57,6 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
 //    CheckBox checkBox_travel;
 
     private Calendar mCalendar;
-    private String varDatedebut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,21 +70,39 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setTitle("Search Article");
 
+        this.configureLayout();
         this.resetBeginDate();
         this.resetEndDate();
         this.OnClickBeginDateListener();
         this.OnClickEndDateListener();
     }
 
-    public void onCheckboxClicked(View view) {
+    // ---------------------------------------------------------
+    // CONFIGURE LAYOUT IF IT'S NOTIFICATION OR SEARCH WITH EXTRA AND SWITCH
+    // ---------------------------------------------------------
+    private void configureLayout() {
+        String extraValue = getIntent().getStringExtra(BUNDLED_EXTRA);
+        switch (extraValue) {
+            case SEARCH_ID:
+                setTitle("Recherche");
+                switchNotif.setVisibility(View.GONE);
+                break;
+            case NOTIF_ID:
+                setTitle("Notifications");
+                datedebut.setVisibility(View.GONE);
+                datefin.setVisibility(View.GONE);
+                break;
+        }
     }
 
+    public void onCheckboxClicked(View view) {
+    }
 
 
     // ---------------------------------------------------------
     // BEGIN AND END DATE : TextView Listener + DatePicker + Label update
     // ---------------------------------------------------------
-    public void OnClickBeginDateListener(){
+    public void OnClickBeginDateListener() {
         mCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -103,7 +124,8 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
             }
         });
     }
-    public void OnClickEndDateListener(){
+
+    public void OnClickEndDateListener() {
         mCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -125,24 +147,24 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
             }
         });
     }
-    public void updateBeginDateLabel(){
+
+    public void updateBeginDateLabel() {
         String mFormat = "dd/MM/yyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(mFormat, Locale.US);
-        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyyMMdd");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyyMMdd");
         datedebut.setText(simpleDateFormat.format(mCalendar.getTime()));
-        varDatedebut = simpleDateFormat2.format(mCalendar.getTime());
     }
-    public void updateEndDateLabel(){
+
+    public void updateEndDateLabel() {
         String mFormat = "dd/MM/yyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(mFormat, Locale.US);
-        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyyMMdd");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyyMMdd");
         datefin.setText(simpleDateFormat.format(mCalendar.getTime()));
-        varDatedebut = simpleDateFormat2.format(mCalendar.getTime());
     }
+
     private void resetBeginDate() {
-        varDatedebut = null;
     }
+
     private void resetEndDate() {
-        varDatedebut = null;
     }
 }
