@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".controller.activity.WebViewActivity" />
-        <activity android:name=".controller.activity.SearchActivity" />
+        <activity android:name=".controller.activity.SearchAndNotifyActivity" />
     </application>
 
 </manifest>
