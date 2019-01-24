@@ -8,6 +8,10 @@ import java.util.Hashtable;
 
 public class MyConstant {
 
+    public static final String BUNDLED_EXTRA = "BUNDLED_EXTRA";
+    public static final String SEARCH_ID = "SEARCH_ID";
+    public static final String NOTIF_ID = "NOTIF_ID";
+
 
     String BASE_URL = "http://api.nytimes.com/"; // http://api.nytimes.com/svc/topstories/v2/world.json?api-key=e5ace90626ec4c7495500a0dbb327980
     String API_KEY = "603VoqkXe4T0cL2iwBnuUndaTW7vBz5G";
