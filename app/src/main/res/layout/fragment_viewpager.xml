@@ -6,25 +6,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.romain.mathieu.mynews.Controller.Activity.MainActivity">
+    tools:context="com.romain.mathieu.mynews.controller.activity.MainActivity">
 
     <ProgressBar
-        android:id="@+id/most_popular_progressBar"
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true" />
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/top_stories_swipeRefreshLayout"
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/most_popular_progressBar">
+        android:layout_below="@id/progressBar">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/most_popular_recyclerView"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/most_popular_progressBar"
+            android:layout_below="@+id/progressBar"
             android:layout_margin="8dp"
             android:scrollbars="vertical"
             tools:listitem="@layout/item" />
