@@ -3,15 +3,29 @@
   -->
 
 <resources>
-    <string name="app_name">MyNews</string>
     <string name="notifications">Notifications</string>
     <string name="Help">Help</string>
     <string name="about">About</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="NEWS">News</string>
     <string name="EMPTY">Empty</string>
     <string name="TOPSTORIES">TopStories</string>
     <string name="error_network">Network error</string>
+    <string name="search">Search</string>
+    <string name="search_query_term">Search Query term</string>
+    <string name="DateBegin">Begin Date</string>
+    <string name="DateEnd">Date End</string>
+    <string name="search_button">Search</string>
+
+    <string name="search_box1">Arts</string>
+    <string name="search_box2">Business</string>
+    <string name="search_box3">Entrepreneurs</string>
+    <string name="search_box4">Politics</string>
+    <string name="search_box5">Sports</string>
+    <string name="search_box6">Travel</string>
+
+    <string name="button_search">Search</string>
+    <string name="switch_text">Enable notifications (once per day)</string>
+    <string name="app_name">MyNews</string>
 </resources>

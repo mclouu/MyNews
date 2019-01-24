@@ -10,4 +10,20 @@
     <string name="EMPTY">Vide</string>
     <string name="TOPSTORIES">Populaire</string>
     <string name="error_network">Problème de réseau</string>
+    <string name="search">Recherche</string>
+    <string name="search_query_term">Recherche</string>
+    <string name="DateBegin">Date de début</string>
+    <string name="DateEnd">Date de fin</string>
+    <string name="search_button">Recherche</string>
+
+    <string name="search_box1">Arts</string>
+    <string name="search_box2">Business</string>
+    <string name="search_box3">Entrepreneurs</string>
+    <string name="search_box4">Politique</string>
+    <string name="search_box5">Sports</string>
+    <string name="search_box6">Voyage</string>
+
+    <string name="button_search">Recherche</string>
+    <string name="switch_text">Activé les notifications (Une fois par jours)</string>
+    <string name="app_name">MyNews</string>
 </resources>
