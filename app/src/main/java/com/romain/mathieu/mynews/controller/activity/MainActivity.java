@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_notif:
-
+                Intent myIntentNotif = new Intent(MainActivity.this, SearchAndNotifyActivity.class);
+                startActivity(myIntentNotif);
                 return true;
             case R.id.menu_help:
 
@@ -86,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.menu_search:
-                Intent myIntent = new Intent(MainActivity.this, SearchAndNotifyActivity.class);
-                startActivity(myIntent);
+                Intent MyIntentSearch = new Intent(MainActivity.this, SearchAndNotifyActivity.class);
+                startActivity(MyIntentSearch);
                 return true;
         }
         return super.onOptionsItemSelected(item);
