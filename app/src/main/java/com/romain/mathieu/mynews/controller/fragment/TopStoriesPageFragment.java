@@ -38,9 +38,9 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
 
     public static ArrayList<CardData> list = new ArrayList<>();
     Context context;
-    @BindView(R.id.top_stories_recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.top_stories_progressBar)
+    @BindView(R.id.progressBar)
     ProgressBar progressBar;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
@@ -61,7 +61,7 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_top_stories_page, container, false);
+        View view = inflater.inflate(R.layout.fragment_viewpager, container, false);
         context = container.getContext();
 
 

@@ -40,11 +40,11 @@ public class MostPopularFragment extends Fragment implements SwipeRefreshLayout.
 
     public static ArrayList<CardData> list = new ArrayList<>();
     Context context;
-    @BindView(R.id.most_popular_recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.most_popular_progressBar)
+    @BindView(R.id.progressBar)
     ProgressBar progressBar;
-    @BindView(R.id.top_stories_swipeRefreshLayout)
+    @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayoutManager llm;
     private MyAdapter adapter;
@@ -64,7 +64,7 @@ public class MostPopularFragment extends Fragment implements SwipeRefreshLayout.
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_most_popular, container, false);
+        View view = inflater.inflate(R.layout.fragment_viewpager, container, false);
         context = container.getContext();
 
         ButterKnife.bind(this, view);

@@ -39,11 +39,11 @@ public class ArticleSearchFragment extends Fragment implements SwipeRefreshLayou
 
     public static ArrayList<CardData> list = new ArrayList<>();
     Context context;
-    @BindView(R.id.articlesearch_recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.articlesearch_progressBar)
+    @BindView(R.id.progressBar)
     ProgressBar progressBar;
-    @BindView(R.id.articlesearch_swipeRefreshLayout)
+    @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayoutManager llm;
     private MyAdapter adapter;
@@ -62,7 +62,7 @@ public class ArticleSearchFragment extends Fragment implements SwipeRefreshLayou
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_articlesearch, container, false);
+        View view = inflater.inflate(R.layout.fragment_viewpager, container, false);
         context = container.getContext();
 
         ButterKnife.bind(this, view);
