@@ -15,10 +15,13 @@ import android.view.MenuItem;
 
 import com.facebook.stetho.Stetho;
 import com.romain.mathieu.mynews.R;
+import com.romain.mathieu.mynews.model.MyConstant;
 import com.romain.mathieu.mynews.view.PageAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.romain.mathieu.mynews.model.MyConstant.BUNDLED_EXTRA;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         setTitle("My News");
-
-
         this.configureViewPagerAndTabs();
     }
 
@@ -78,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_notif:
                 Intent myIntentNotif = new Intent(MainActivity.this, SearchAndNotifyActivity.class);
-                startActivity(myIntentNotif);
+                myIntentNotif.putExtra(BUNDLED_EXTRA, MyConstant.NOTIF_ID);
+                this.startActivity(myIntentNotif);
                 return true;
             case R.id.menu_help:
 
@@ -87,8 +89,9 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.menu_search:
-                Intent MyIntentSearch = new Intent(MainActivity.this, SearchAndNotifyActivity.class);
-                startActivity(MyIntentSearch);
+                Intent myIntentSearch = new Intent(MainActivity.this, SearchAndNotifyActivity.class);
+                myIntentSearch.putExtra(BUNDLED_EXTRA, MyConstant.SEARCH_ID);
+                this.startActivity(myIntentSearch);
                 return true;
         }
         return super.onOptionsItemSelected(item);
