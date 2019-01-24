@@ -13,21 +13,34 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.facebook.stetho.Stetho;
 import com.romain.mathieu.mynews.R;
 import com.romain.mathieu.mynews.view.PageAdapter;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.activity_main_viewpager)
+    ViewPager pager;
+    @BindView(R.id.activity_main_tabs)
+    TabLayout tabs;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
 
+        ButterKnife.bind(this);
+        Stetho.initializeWithDefaults(this);
 
         setSupportActionBar(toolbar);
         setTitle("My News");
+
 
         this.configureViewPagerAndTabs();
     }
@@ -38,8 +51,7 @@ public class MainActivity extends AppCompatActivity {
     //-------------
 
     private void configureViewPagerAndTabs() {
-        ViewPager pager = findViewById(R.id.activity_main_viewpager);
-        TabLayout tabs = findViewById(R.id.activity_main_tabs);
+
         //Get ViewPager from layout
         //Set Adapter PageAdapter and glue it together
         pager.setAdapter(new PageAdapter(getSupportFragmentManager()));
