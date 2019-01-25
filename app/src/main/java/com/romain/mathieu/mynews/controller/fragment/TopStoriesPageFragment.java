@@ -19,11 +19,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
+import com.romain.mathieu.mynews.R;
 import com.romain.mathieu.mynews.model.API.TopStories.NYTAPITopstories;
 import com.romain.mathieu.mynews.model.CardData;
-import com.romain.mathieu.mynews.model.MyConstant;
 import com.romain.mathieu.mynews.model.NYTStreams;
-import com.romain.mathieu.mynews.R;
+import com.romain.mathieu.mynews.utils.MyConstant;
 import com.romain.mathieu.mynews.view.MyAdapter;
 
 import java.util.ArrayList;
@@ -63,7 +63,6 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_viewpager, container, false);
         context = container.getContext();
-
 
 
         ButterKnife.bind(this, view);
@@ -110,9 +109,9 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
     private void executeHttpRequestWithRetrofit() {
 
         // 1.2 - Execute the stream subscribing to Observable defined inside GithubStream
-            // To change the section, change the constant value => GET_SECTION_TOP(n) (0 = world [...] 25 = home)
+        // To change the section, change the constant value => GET_SECTION_TOP(n) (0 = world [...] 25 = home)
         this.disposable = NYTStreams.streamFetchTop("home").subscribeWith(
-        //this.disposable = NYTStreams.streamFetchTop(constant.GET_SECTION_TOP(0)).subscribeWith(
+                //this.disposable = NYTStreams.streamFetchTop(constant.GET_SECTION_TOP(0)).subscribeWith(
                 new DisposableObserver<NYTAPITopstories>() {
                     @Override
                     public void onNext(NYTAPITopstories section) {

@@ -19,11 +19,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
+import com.romain.mathieu.mynews.R;
 import com.romain.mathieu.mynews.model.API.MostPopular.NYTAPIMostPopular;
 import com.romain.mathieu.mynews.model.CardData;
-import com.romain.mathieu.mynews.model.MyConstant;
 import com.romain.mathieu.mynews.model.NYTStreams;
-import com.romain.mathieu.mynews.R;
 import com.romain.mathieu.mynews.view.MyAdapter;
 
 import java.util.ArrayList;
@@ -49,7 +48,6 @@ public class MostPopularFragment extends Fragment implements SwipeRefreshLayout.
     private LinearLayoutManager llm;
     private MyAdapter adapter;
     private Disposable disposable;
-    MyConstant constant = new MyConstant();
 
     public MostPopularFragment() {
         // Required empty public constructor
@@ -111,9 +109,9 @@ public class MostPopularFragment extends Fragment implements SwipeRefreshLayout.
     private void executeHttpRequestWithRetrofit() {
 
         // 1.2 - Execute the stream subscribing to Observable defined inside GithubStream
-            // To change the section, change the constant value => GET_SECTION_TOP(n) (0 = all-sections [...] 35 = art)
+        // To change the section, change the constant value => GET_SECTION_TOP(n) (0 = all-sections [...] 35 = art)
         this.disposable = NYTStreams.streamFetchMost("World").subscribeWith(
-        //this.disposable = NYTStreams.streamFetchMost(constant.GET_SECTION_MOST(31)).subscribeWith(
+                //this.disposable = NYTStreams.streamFetchMost(constant.GET_SECTION_MOST(31)).subscribeWith(
                 new DisposableObserver<NYTAPIMostPopular>() {
                     @Override
                     public void onNext(NYTAPIMostPopular section) {
@@ -144,7 +142,6 @@ public class MostPopularFragment extends Fragment implements SwipeRefreshLayout.
     // -------------------
     // UPDATE UI
     // -------------------
-
 
 
     private void updateUIWithListOfArticle(NYTAPIMostPopular response) {
