@@ -40,4 +40,12 @@ public class NYTStreams {
                 .observeOn(mainThread())
                 .timeout(10, TimeUnit.SECONDS);
     }
+
+    public static Observable<NYTAPIArticleSearch> streamFetchSearch() {
+        NYTService nytService = NYTService.retrofit.create(NYTService.class);
+        return nytService.getPostSearch()
+                .subscribeOn(Schedulers.io())
+                .observeOn(mainThread())
+                .timeout(10, TimeUnit.SECONDS);
+    }
 }

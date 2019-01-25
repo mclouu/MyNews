@@ -8,6 +8,7 @@ import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.romain.mathieu.mynews.model.API.ArticleSearch.NYTAPIArticleSearch;
 import com.romain.mathieu.mynews.model.API.MostPopular.NYTAPIMostPopular;
 import com.romain.mathieu.mynews.model.API.TopStories.NYTAPITopstories;
+import com.romain.mathieu.mynews.utils.MyConstant;
 
 import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
@@ -39,4 +40,7 @@ public interface NYTService {
 
     @GET("svc/search/v2/articlesearch.json?&fq=news_desk:(\"technology\")&page=0&sort=newest&?hl=true&api-key=603VoqkXe4T0cL2iwBnuUndaTW7vBz5G")
     Observable<NYTAPIArticleSearch> getPostArticle();
+
+    @GET("svc/search/v2/articlesearch.json?&fq=news_desk:(\"technology\")&page=0&sort=newest&?hl=true&api-key=603VoqkXe4T0cL2iwBnuUndaTW7vBz5G")
+    Observable<NYTAPIArticleSearch> getPostSearch();
 }
