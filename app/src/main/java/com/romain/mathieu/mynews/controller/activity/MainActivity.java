@@ -15,13 +15,13 @@ import android.view.MenuItem;
 
 import com.facebook.stetho.Stetho;
 import com.romain.mathieu.mynews.R;
-import com.romain.mathieu.mynews.model.MyConstant;
+import com.romain.mathieu.mynews.utils.MyConstant;
 import com.romain.mathieu.mynews.view.PageAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.romain.mathieu.mynews.model.MyConstant.BUNDLED_EXTRA;
+import static com.romain.mathieu.mynews.utils.MyConstant.BUNDLED_EXTRA;
 
 public class MainActivity extends AppCompatActivity {
 
