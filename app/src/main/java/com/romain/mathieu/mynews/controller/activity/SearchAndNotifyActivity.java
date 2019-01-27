@@ -8,20 +8,19 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
 import com.romain.mathieu.mynews.R;
-import com.romain.mathieu.mynews.model.API.ArticleSearch.NYTAPIArticleSearch;
 import com.romain.mathieu.mynews.model.CardData;
-import com.romain.mathieu.mynews.model.NYTStreams;
-import com.romain.mathieu.mynews.utils.MyConstant;
 import com.romain.mathieu.mynews.utils.SharedPreferencesUtils;
 import com.romain.mathieu.mynews.view.MyAdapter;
 
@@ -33,7 +32,6 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableObserver;
 
 import static com.romain.mathieu.mynews.utils.MyConstant.BUNDLED_EXTRA;
 import static com.romain.mathieu.mynews.utils.MyConstant.NOTIF_ID;
@@ -44,11 +42,11 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    //    @BindView(R.id.recyclerView)
-//    RecyclerView recyclerView;
-//
-//    @BindView(R.id.search_editText)
-//    EditText search_word;
+
+    @BindView(R.id.button_search)
+    Button buttonSearch;
+    @BindView(R.id.search_editText)
+    EditText search_query;
     @BindView(R.id.begin_date_edittext)
     EditText datedebut;
     @BindView(R.id.end_date_edittext)
@@ -75,6 +73,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     public static ArrayList<CardData> listSearch = new ArrayList<>();
     private MyAdapter adapter;
     private Disposable disposable;
+    private String query, newsDesk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +98,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         switch (extraValue) {
             case SEARCH_ID:
                 setTitle("Recherche");
+                this.editTextQueryTerm();
                 this.resetBeginDate();
                 this.resetEndDate();
                 this.OnClickBeginDateListener();
@@ -107,6 +107,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
                 break;
             case NOTIF_ID:
                 setTitle("Notifications");
+                buttonSearch.setVisibility(View.GONE);
                 datedebut.setVisibility(View.GONE);
                 datefin.setVisibility(View.GONE);
                 break;
@@ -186,15 +187,52 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         }
     }
 
+    private boolean isCheckBoxChecked() {
+        return checkBox_Art.isChecked() ||
+                checkBox_business.isChecked() ||
+                checkBox_entrepreneur.isChecked() ||
+                checkBox_politics.isChecked() ||
+                checkBox_sports.isChecked() ||
+                checkBox_travel.isChecked();
+    }
+
+    // ---------------------------------------------------------
+    // TEXT WATCHER ON THE EDIT TEXT
+    // ---------------------------------------------------------
+    private void editTextQueryTerm() {
+        search_query.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                query = s.toString().trim();
+                // if all the conditions return true then the button becomes enable
+                if (isQueryTermEditTextEmpty()) {
+//                    if (isQueryTermEditTextEmpty() && isCheckBoxChecked() && isDatesCorrect()) {
+                    buttonSearch.setEnabled(true);
+                } else buttonSearch.setEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
+    private boolean isQueryTermEditTextEmpty() {
+        return !query.isEmpty();
+    }
+
     // ---------------------------------------------------------
     // ON CLICK BUTTON
     // ---------------------------------------------------------
 
     public void onClickButton(View view) {
-        Toast.makeText(this, "tdb", Toast.LENGTH_SHORT).show();
-//        this.executeHttpReques();
+        Log.e("Renaud TDB", query);
         Intent myIntent = new Intent(SearchAndNotifyActivity.this, ResultSearch.class);
-        myIntent.putExtra(BUNDLED_EXTRA, SEARCH_ID); //Optional parameters
+        myIntent.putExtra("QUERY_TERM", query); //Optional parameters
         this.startActivity(myIntent);
     }
 
@@ -284,61 +322,6 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
 
         builder.show();
 
-    }
-
-    // ---------------------------------------------------------
-    // HTTP (RxJAVA & Retrofit)
-    // ---------------------------------------------------------
-
-    private void executeHttpReques() {
-        Disposable disposable = NYTStreams
-                .streamFetchSearch(MyConstant.API_KEY, "google", "technology", "newest", "20180101", "20190101")
-                .subscribeWith(new DisposableObserver<NYTAPIArticleSearch>() {
-            @Override
-            public void onNext(NYTAPIArticleSearch section) {
-                Toast.makeText(SearchAndNotifyActivity.this, "onNext", Toast.LENGTH_SHORT).show();
-                updateUIWithListOfArticle(section);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Toast.makeText(SearchAndNotifyActivity.this, "Error", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onComplete() {
-                Toast.makeText(SearchAndNotifyActivity.this, "onComplete", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void updateUIWithListOfArticle(NYTAPIArticleSearch response) {
-        if (listSearch != null) {
-            listSearch.clear();
-        }
-
-        int num_results = 10;
-        for (int i = 0; i < num_results; i++) {
-            //String section = response.getResponse().getDocs().get(i).getNewDesk();
-            String section1 = "";
-            String title = response.getResponse().getDocs().get(i).getSnippet();
-            String imageURL;
-            if (response.getResponse().getDocs().get(i).getMultimedia().isEmpty()) {
-                imageURL = "https://image.noelshack.com/fichiers/2018/17/7/1524955130-empty-image-thumb2.png";
-            } else {
-                imageURL = response.getResponse().getDocs().get(i).getMultimedia().get(0).getUrl();
-            }
-            String articleURL = response.getResponse().getDocs().get(i).getWebUrl();
-            String date = response.getResponse().getDocs().get(i).getPubDate();
-            date = date.replace("T", " - ");
-            listSearch.add(new CardData(
-                    section1 + "",
-                    title + "",
-                    date + "",
-                    "https://www.nytimes.com/" + imageURL,
-                    articleURL + ""));
-        }
-//        adapter.notifyDataSetChanged();
     }
 
     // ---------------------------------------------------------
