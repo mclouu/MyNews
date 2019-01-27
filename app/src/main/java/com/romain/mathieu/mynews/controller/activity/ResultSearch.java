@@ -37,8 +37,7 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
     public static ArrayList<CardData> listResut = new ArrayList<>();
     MyAdapter adapter;
     LinearLayoutManager llm;
-    String queryResult = "";
-    String fqueryResult = "";
+    String queryResult = "", fqueryResult = "", dateDebut = "", dateFin = "";
 
 
     @Override
@@ -56,8 +55,12 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
         recyclerView.setAdapter(adapter);
 
         queryResult = getIntent().getStringExtra("QUERY");
+
         fqueryResult = getIntent().getStringExtra("FQUERY");
         fqueryResult = fqueryResult.trim();
+
+        dateDebut = getIntent().getStringExtra("DATE_DEBUT"); //20000101
+        dateFin = getIntent().getStringExtra("DATE_END");
 
         this.executeHttpRequest();
 
@@ -80,8 +83,8 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
         String query = queryResult;
         String fQuery = fqueryResult;
         String sort = "newest";
-        String beginDate = "20180101";
-        String endDate = "20190101";
+        String beginDate = dateDebut;
+        String endDate = dateFin;
         Disposable disposable = NYTStreams
                 .streamFetchSearch(MyConstant.API_KEY, query, fQuery, sort, beginDate, endDate)
                 .subscribeWith(new DisposableObserver<NYTAPIArticleSearch>() {
