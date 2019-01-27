@@ -13,7 +13,7 @@
     <string name="TOPSTORIES">TopStories</string>
     <string name="error_network">Network error</string>
     <string name="search">Search</string>
-    <string name="search_query_term">Search Query term</string>
+    <string name="search_query_term">*Search Query term</string>
     <string name="DateBegin">Begin Date</string>
     <string name="DateEnd">Date End</string>
     <string name="search_button">Search</string>
@@ -37,4 +37,6 @@
     <string name="notif">Notifications</string>
     <string name="Error">Error</string>
     <string name="noResults">No search results found, try again</string>
+    <string name="obligation">*You have to select one category at least</string>
+    <string name="categorie">categorie</string>
 </resources>

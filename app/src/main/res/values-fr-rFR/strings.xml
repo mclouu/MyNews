@@ -11,7 +11,7 @@
     <string name="TOPSTORIES">Populaire</string>
     <string name="error_network">Problème de réseau</string>
     <string name="search">Recherche</string>
-    <string name="search_query_term">Recherche</string>
+    <string name="search_query_term">*Recherche</string>
     <string name="DateBegin">Date de début</string>
     <string name="DateEnd">Date de fin</string>
     <string name="search_button">Recherche</string>
@@ -35,4 +35,6 @@
     <string name="notif">Notifications</string>
     <string name="Error">Erreur</string>
     <string name="noResults">Aucun résultat trouvé, réessayez</string>
+    <string name="obligation">*Vous devez choisir au minimum une catégorie</string>
+    <string name="categorie">categorie</string>
 </resources>
