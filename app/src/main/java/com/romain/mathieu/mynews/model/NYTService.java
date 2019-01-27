@@ -17,6 +17,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface NYTService {
 
@@ -32,15 +33,26 @@ public interface NYTService {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build();
 
-    @GET("svc/topstories/v2/{section}.json?api-key=603VoqkXe4T0cL2iwBnuUndaTW7vBz5G")
-    Observable<NYTAPITopstories> getPostTop(@Path("section") String section);
 
-    @GET("svc/mostpopular/v2/mostviewed/{section}/30.json?api-key=603VoqkXe4T0cL2iwBnuUndaTW7vBz5G")
-    Observable<NYTAPIMostPopular> getPostMost(@Path("section") String section);
+    @GET("svc/topstories/v2/{section}.json")
+    Observable<NYTAPITopstories> getPostTop(@Path("section") String section,
+                                            @Query("api-key") String apiKey);
 
-    @GET("svc/search/v2/articlesearch.json?&fq=news_desk:(\"technology\")&page=0&sort=newest&?hl=true&api-key=603VoqkXe4T0cL2iwBnuUndaTW7vBz5G")
-    Observable<NYTAPIArticleSearch> getPostArticle();
+    @GET("svc/mostpopular/v2/mostviewed/{section}/30.json")
+    Observable<NYTAPIMostPopular> getPostMost(@Path("section") String section,
+                                              @Query("api-key") String apiKey);
 
-    @GET("svc/search/v2/articlesearch.json?&fq=news_desk:(\"technology\")&page=0&sort=newest&?hl=true&api-key=603VoqkXe4T0cL2iwBnuUndaTW7vBz5G")
-    Observable<NYTAPIArticleSearch> getPostSearch();
+    @GET("svc/search/v2/articlesearch.json")
+    Observable<NYTAPIArticleSearch> getPostArticle(@Query("api-key") String apiKey,
+                                                   @Query("fq") String fQuery,
+                                                   @Query("sort") String sort);
+
+    //    https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=603VoqkXe4T0cL2iwBnuUndaTW7vBz5G&q=google&fq=news_desk:("politics" "business")&begin_date=20180101&end_date=20190101
+    @GET("svc/search/v2/articlesearch.json")
+    Observable<NYTAPIArticleSearch> getPostSearch(@Query("api-key") String apiKey,
+                                                  @Query("q") String query,
+                                                  @Query("fq") String fQuery,
+                                                  @Query("sort") String sort,
+                                                  @Query("begin_date") String beginDate,
+                                                  @Query("end_date") String endDate);
 }
