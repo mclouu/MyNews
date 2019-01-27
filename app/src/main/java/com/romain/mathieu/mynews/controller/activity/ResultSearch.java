@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import com.romain.mathieu.mynews.R;
 import com.romain.mathieu.mynews.model.API.ArticleSearch.NYTAPIArticleSearch;
 import com.romain.mathieu.mynews.model.CardData;
 import com.romain.mathieu.mynews.model.NYTStreams;
+import com.romain.mathieu.mynews.utils.MyConstant;
 import com.romain.mathieu.mynews.view.MyAdapter;
 
 import java.util.ArrayList;
@@ -33,6 +35,7 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
     public static ArrayList<CardData> listResut = new ArrayList<>();
     MyAdapter adapter;
     LinearLayoutManager llm;
+    String queryResult ="";
 
 
     @Override
@@ -48,6 +51,10 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
 
         adapter = new MyAdapter(listResut);
         recyclerView.setAdapter(adapter);
+
+        queryResult = getIntent().getStringExtra("QUERY_TERM");
+
+        Log.e("TDB resultat", queryResult);
 
         this.executeHttpReques();
 
@@ -67,24 +74,31 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
     // ---------------------------------------------------------
 
     private void executeHttpReques() {
-        Disposable disposable = NYTStreams.streamFetchSearch().subscribeWith(new DisposableObserver<NYTAPIArticleSearch>() {
-            @Override
-            public void onNext(NYTAPIArticleSearch section) {
-                Toast.makeText(ResultSearch.this, "Yo tdb", Toast.LENGTH_SHORT).show();
-                updateUIWithListOfArticle(section);
-            }
+        String query = queryResult;
+        String fQuery = "business";
+        String sort = "newest";
+        String beginDate = "20180101";
+        String endDate = "20190101";
+        Disposable disposable = NYTStreams
+                .streamFetchSearch(MyConstant.API_KEY, query, fQuery, sort, beginDate, endDate)
+                .subscribeWith(new DisposableObserver<NYTAPIArticleSearch>() {
+                    @Override
+                    public void onNext(NYTAPIArticleSearch section) {
+                        Toast.makeText(ResultSearch.this, "Yo tdb", Toast.LENGTH_SHORT).show();
+                        updateUIWithListOfArticle(section);
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                progressBar.setVisibility(View.GONE);
-                Toast.makeText(ResultSearch.this, "Error", Toast.LENGTH_SHORT).show();
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(ResultSearch.this, "Error", Toast.LENGTH_SHORT).show();
+                    }
 
-            @Override
-            public void onComplete() {
-                progressBar.setVisibility(View.GONE);
-            }
-        });
+                    @Override
+                    public void onComplete() {
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
     }
 
     private void updateUIWithListOfArticle(NYTAPIArticleSearch response) {
@@ -92,10 +106,9 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
             listResut.clear();
         }
 
-        int num_results = 20;
+        int num_results = 10;
         for (int i = 0; i < num_results; i++) {
-            String section1 = response.getResponse().getDocs().get(i).getNewDesk();
-//            String section = "";
+            String section = response.getResponse().getDocs().get(i).getNewsDesk();
             String title = response.getResponse().getDocs().get(i).getSnippet();
             String imageURL;
             if (response.getResponse().getDocs().get(i).getMultimedia().isEmpty()) {
@@ -107,12 +120,13 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
             String date = response.getResponse().getDocs().get(i).getPubDate();
             date = date.replace("T", " - ");
             listResut.add(new CardData(
-                    section1 + "",
+                    section + "",
                     title + "",
                     date + "",
                     "https://www.nytimes.com/" + imageURL,
                     articleURL + ""));
         }
+
         adapter.notifyDataSetChanged();
     }
 }
