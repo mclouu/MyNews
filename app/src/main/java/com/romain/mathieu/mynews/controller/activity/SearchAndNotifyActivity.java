@@ -2,15 +2,12 @@ package com.romain.mathieu.mynews.controller.activity;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -97,7 +94,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         String extraValue = getIntent().getStringExtra(BUNDLED_EXTRA);
         switch (extraValue) {
             case SEARCH_ID:
-                setTitle("Recherche");
+                setTitle(R.string.Search_title);
                 this.editTextQueryTerm();
                 this.resetBeginDate();
                 this.resetEndDate();
@@ -106,7 +103,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
                 switchNotif.setVisibility(View.GONE);
                 break;
             case NOTIF_ID:
-                setTitle("Notifications");
+                setTitle(R.string.notif);
                 buttonSearch.setVisibility(View.GONE);
                 datedebut.setVisibility(View.GONE);
                 datefin.setVisibility(View.GONE);
@@ -159,7 +156,6 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
             case R.id.checkBox_politics:
                 if (checked) {
                     checkBoxPolitics = 1;
-                    this.notifyEmptySearchResultsError();
                     SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxPolitics);
                 } else {
                     checkBoxPolitics = 0;
@@ -230,7 +226,6 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     // ---------------------------------------------------------
 
     public void onClickButton(View view) {
-        Log.e("Renaud TDB", query);
         Intent myIntent = new Intent(SearchAndNotifyActivity.this, ResultSearch.class);
         myIntent.putExtra("QUERY_TERM", query); //Optional parameters
         this.startActivity(myIntent);
@@ -303,25 +298,6 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     }
 
     private void resetEndDate() {
-    }
-
-    private void notifyEmptySearchResultsError() {
-
-        // Build an AlertDialog for the Help section
-        AlertDialog.Builder builder = new AlertDialog.Builder(SearchAndNotifyActivity.this);
-        // Set Title and Message content
-        builder.setTitle("Error");
-        builder.setMessage("No search results found, try again");
-        // Neutral button
-        builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
-
     }
 
     // ---------------------------------------------------------

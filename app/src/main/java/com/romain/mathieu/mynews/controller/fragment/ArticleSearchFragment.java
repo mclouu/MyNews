@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +18,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
+import com.romain.mathieu.mynews.R;
 import com.romain.mathieu.mynews.model.API.ArticleSearch.NYTAPIArticleSearch;
 import com.romain.mathieu.mynews.model.CardData;
 import com.romain.mathieu.mynews.model.NYTStreams;
-import com.romain.mathieu.mynews.R;
 import com.romain.mathieu.mynews.utils.MyConstant;
 import com.romain.mathieu.mynews.view.MyAdapter;
 
@@ -115,8 +114,6 @@ public class ArticleSearchFragment extends Fragment implements SwipeRefreshLayou
                 new DisposableObserver<NYTAPIArticleSearch>() {
                     @Override
                     public void onNext(NYTAPIArticleSearch section) {
-                        Log.e("TAG", "onNext");
-
                         // 1.3 - Update UI with technology stories
                         updateUIWithListOfArticle(section);
                     }
@@ -124,13 +121,11 @@ public class ArticleSearchFragment extends Fragment implements SwipeRefreshLayou
                     @Override
                     public void onError(Throwable e) {
                         progressBar.setVisibility(View.GONE);
-                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
-                        Log.e("TAG", "On Error \n" + Log.getStackTraceString(e));
+                        Toast.makeText(context, getString(R.string.error), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onComplete() {
-                        Log.e("TAG", "On Complete !!");
                         progressBar.setVisibility(View.GONE);
                     }
                 });
@@ -158,11 +153,12 @@ public class ArticleSearchFragment extends Fragment implements SwipeRefreshLayou
             if (response.getResponse().getDocs().get(i).getMultimedia().isEmpty()) {
                 imageURL = "https://image.noelshack.com/fichiers/2018/17/7/1524955130-empty-image-thumb2.png";
             } else {
-            imageURL = response.getResponse().getDocs().get(i).getMultimedia().get(0).getUrl();
+                imageURL = response.getResponse().getDocs().get(i).getMultimedia().get(0).getUrl();
             }
             String articleURL = response.getResponse().getDocs().get(i).getWebUrl();
             String date = response.getResponse().getDocs().get(i).getPubDate();
             date = date.replace("T", " - ");
+            date = date.replace("+0000", "");
             list.add(new CardData(
                     section + "",
                     title + "",

@@ -27,4 +27,9 @@
     <string name="switch_text">Activé les notifications (Une fois par jours)</string>
     <string name="app_name">MyNews</string>
     <string name="category">catégorie</string>
+    <string name="error">vérifiez votre connexion internet</string>
+    <string name="Search_title">Recherche</string>
+    <string name="notif">Notifications</string>
+    <string name="Error">Erreur</string>
+    <string name="noResults">Aucun résultat trouvé, réessayez</string>
 </resources>

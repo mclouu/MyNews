@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,7 +114,6 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
                 new DisposableObserver<NYTAPITopstories>() {
                     @Override
                     public void onNext(NYTAPITopstories section) {
-                        Log.e("TAG", "onNext");
                         // 1.3 - Update UI with topstories
                         updateUIWithListOfArticle(section);
                     }
@@ -123,13 +121,11 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
                     @Override
                     public void onError(Throwable e) {
                         progressBar.setVisibility(View.GONE);
-                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
-                        Log.e("TAG", "On Error \n" + Log.getStackTraceString(e));
+                        Toast.makeText(context, getString(R.string.error), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onComplete() {
-                        Log.e("TAG", "On Complete !!");
                         progressBar.setVisibility(View.GONE);
                     }
                 });
@@ -162,7 +158,7 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
             String articleURL = response.getResults().get(i).getUrl();
             String date = response.getResults().get(i).getCreatedDate();
             date = date.replace("T", " - ");
-
+            date = date.replace("+0000", "");
             list.add(new CardData(
                     section1 + " > " + section2,
                     subTitle + "",

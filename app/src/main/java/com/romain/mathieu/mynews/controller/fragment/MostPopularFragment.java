@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,7 +115,6 @@ public class MostPopularFragment extends Fragment implements SwipeRefreshLayout.
                 new DisposableObserver<NYTAPIMostPopular>() {
                     @Override
                     public void onNext(NYTAPIMostPopular section) {
-                        Log.e("TAG", "onNext");
                         // 1.3 - Update UI with most popular stories
                         updateUIWithListOfArticle(section);
                     }
@@ -124,13 +122,11 @@ public class MostPopularFragment extends Fragment implements SwipeRefreshLayout.
                     @Override
                     public void onError(Throwable e) {
                         progressBar.setVisibility(View.GONE);
-                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
-                        Log.e("tdb", "On Error \n" + Log.getStackTraceString(e));
+                        Toast.makeText(context, getString(R.string.error), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onComplete() {
-                        Log.e("TAG", "On Complete !!");
                         progressBar.setVisibility(View.GONE);
                     }
                 });
@@ -163,7 +159,6 @@ public class MostPopularFragment extends Fragment implements SwipeRefreshLayout.
             }
             String articleURL = response.getResults().get(i).getUrl();
             String date = response.getResults().get(i).getPublishedDate();
-
             list.add(new CardData(
                     section1 + "",
                     title + "",
