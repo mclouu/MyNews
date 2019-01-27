@@ -18,9 +18,9 @@ public class MyConstant {
 
 
     public String BASE_URL = "http://api.nytimes.com/"; // http://api.nytimes.com/svc/topstories/v2/world.json?api-key=e5ace90626ec4c7495500a0dbb327980
-    String API_KEY = "603VoqkXe4T0cL2iwBnuUndaTW7vBz5G";
+    public static String API_KEY = "603VoqkXe4T0cL2iwBnuUndaTW7vBz5G";
 
-    public String GET_SECTION_TOP(int section) {
+    public static String GET_SECTION_TOP(int section) {
         Hashtable<Integer, String> category = new Hashtable<>();
         category.put(25, "home");
         category.put(24, "arts");
@@ -52,7 +52,7 @@ public class MyConstant {
         return category.get(section);
     }
 
-    public String GET_SECTION_MOST(int section) {
+    public static String GET_SECTION_MOST(int section) {
         Hashtable<Integer, String> category = new Hashtable<>();
         category.put(35, "art");
         category.put(34, "Automobiles");
