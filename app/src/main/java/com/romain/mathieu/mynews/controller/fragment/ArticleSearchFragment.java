@@ -23,6 +23,7 @@ import com.romain.mathieu.mynews.model.API.ArticleSearch.NYTAPIArticleSearch;
 import com.romain.mathieu.mynews.model.CardData;
 import com.romain.mathieu.mynews.model.NYTStreams;
 import com.romain.mathieu.mynews.R;
+import com.romain.mathieu.mynews.utils.MyConstant;
 import com.romain.mathieu.mynews.view.MyAdapter;
 
 import java.util.ArrayList;
@@ -109,7 +110,8 @@ public class ArticleSearchFragment extends Fragment implements SwipeRefreshLayou
     private void executeHttpRequestWithRetrofit() {
 
         // 1.2 - Execute the stream subscribing to Observable defined inside GithubStream
-        this.disposable = NYTStreams.streamFetchArticle().subscribeWith(
+        int section = 5;
+        this.disposable = NYTStreams.streamFetchArticle(MyConstant.API_KEY, MyConstant.GET_SECTION_TOP(section), "newest").subscribeWith(
                 new DisposableObserver<NYTAPIArticleSearch>() {
                     @Override
                     public void onNext(NYTAPIArticleSearch section) {
@@ -150,8 +152,7 @@ public class ArticleSearchFragment extends Fragment implements SwipeRefreshLayou
 
         int num_results = 10;
         for (int i = 0; i < num_results; i++) {
-            //String section = response.getResponse().getDocs().get(i).getNewDesk();
-            String section1 = "";
+            String section = response.getResponse().getDocs().get(i).getNewsDesk();
             String title = response.getResponse().getDocs().get(i).getSnippet();
             String imageURL;
             if (response.getResponse().getDocs().get(i).getMultimedia().isEmpty()) {
@@ -163,7 +164,7 @@ public class ArticleSearchFragment extends Fragment implements SwipeRefreshLayou
             String date = response.getResponse().getDocs().get(i).getPubDate();
             date = date.replace("T", " - ");
             list.add(new CardData(
-                    section1 + "Technology",
+                    section + "",
                     title + "",
                     date + "",
                     "https://www.nytimes.com/" + imageURL,
