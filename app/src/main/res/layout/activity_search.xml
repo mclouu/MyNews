@@ -1,60 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.romain.mathieu.mynews.controller.activity.SearchAndNotifyActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.romain.mathieu.mynews.controller.activity.SearchAndNotifyActivity">
 
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/toolbar"/>
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
     <EditText
         android:id="@+id/search_editText"
-        android:hint="@string/search_query_term"
-        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        android:maxLength="40"
-        android:maxLines="1"
-        android:singleLine="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        android:hint="@string/search_query_term"
+        android:maxLength="40"
+        android:maxLines="1"
+        android:singleLine="true" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="20dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        android:paddingTop="20dp"
         android:weightSum="3">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_weight="1.5"
-            >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/begin_date_textview_label"
-                android:paddingStart="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/DateBegin"
-                />
+                android:paddingStart="4dp"
+                android:text="@string/DateBegin" />
 
             <EditText
                 android:id="@+id/begin_date_edittext"
                 android:layout_width="170dp"
                 android:layout_height="42dp"
                 android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
-                android:focusable="false"
-                />
+                android:focusable="false" />
 
 
         </LinearLayout>
@@ -62,27 +59,25 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="20dp"
-            android:orientation="vertical"
             android:layout_weight="1.5"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
 
             >
 
             <TextView
                 android:id="@+id/end_date_textview_label"
-                android:paddingStart="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/DateEnd"
-                />
+                android:paddingStart="4dp"
+                android:text="@string/DateEnd" />
 
             <EditText
                 android:id="@+id/end_date_edittext"
                 android:layout_width="170dp"
                 android:layout_height="42dp"
                 android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
-                android:focusable="false"
-                />
+                android:focusable="false" />
 
         </LinearLayout>
 
@@ -92,14 +87,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="1"
-        android:paddingStart="8dp">
+        android:paddingStart="8dp"
+        android:weightSum="1">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="0.5">
+            android:layout_weight="0.5"
+            android:orientation="vertical">
 
             <CheckBox
                 android:id="@+id/checkBox_Art"
@@ -134,8 +129,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="0.5">
+            android:layout_weight="0.5"
+            android:orientation="vertical">
 
             <CheckBox
                 android:id="@+id/checkBox_financial"
@@ -181,10 +176,10 @@
             android:id="@+id/horizontal_divider_search"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:background="?android:attr/listDivider"
-            android:color="@color/colorBlack"/>
+            android:color="@color/colorBlack" />
 
     </LinearLayout>
 
@@ -196,10 +191,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
             android:orientation="horizontal"
-            android:paddingTop="8dp">
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp">
 
 
             <Button
@@ -208,21 +203,30 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
                 android:clickable="true"
+                android:focusable="true"
                 android:gravity="center"
                 android:onClick="onClickButton"
-                android:text="@string/button_search"
-                android:focusable="true" />
+                android:text="@string/button_search" />
 
         </LinearLayout>
 
 
         <Switch
             android:id="@+id/notification_switch"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:text="@string/switch_text" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/obligation"
+            android:textColor="@color/colorRouge"
+            android:textStyle="bold" />
+
+
     </LinearLayout>
 
 
