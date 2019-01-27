@@ -38,6 +38,7 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
     MyAdapter adapter;
     LinearLayoutManager llm;
     String queryResult = "";
+    String fqueryResult = "";
 
 
     @Override
@@ -54,7 +55,9 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
         adapter = new MyAdapter(listResut);
         recyclerView.setAdapter(adapter);
 
-        queryResult = getIntent().getStringExtra("QUERY_TERM");
+        queryResult = getIntent().getStringExtra("QUERY");
+        fqueryResult = getIntent().getStringExtra("FQUERY");
+        fqueryResult = fqueryResult.trim();
 
         this.executeHttpRequest();
 
@@ -75,7 +78,7 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
 
     private void executeHttpRequest() {
         String query = queryResult;
-        String fQuery = "business";
+        String fQuery = fqueryResult;
         String sort = "newest";
         String beginDate = "20180101";
         String endDate = "20190101";
