@@ -37,7 +37,7 @@
         android:paddingEnd="8dp"
         android:paddingTop="9dp"
         android:text=""
-        android:textColor="@color/colorBlack" />
+        android:textColor="@color/colorOrange" />
 
     <TextView
         android:id="@+id/subTitle"
@@ -57,5 +57,5 @@
         android:layout_height="1dp"
         android:layout_below="@id/date"
         android:layout_marginStart="100dp"
-        android:background="@color/colorGrey" />
+        android:background="@color/colorOrange" />
 </RelativeLayout>

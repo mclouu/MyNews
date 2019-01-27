@@ -7,9 +7,12 @@
     <color name="colorPrimaryDark">#6ba6ae</color>
     <color name="colorAccent">#cecece</color>
 
+
     <color name="colorGrey">#858C93</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWithe">#FFF</color>
+    <color name="colorRouge">#FF5252</color>
+    <color name="colorOrange">#FF6E40</color>
 
 
     <!-- COLOR VIEWPAGER -->
