@@ -34,22 +34,6 @@ public class NYTStreams {
                 .timeout(10, TimeUnit.SECONDS);
     }
 
-//    public static Observable<NYTAPITopstories> streamFetchTop(String apiKey, String section) {
-//        NYTService nytService = NYTService.retrofit.create(NYTService.class);
-//        return nytService.getPostTop(apiKey, section)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(mainThread())
-//                .timeout(10, TimeUnit.SECONDS);
-//    }
-//
-//    public static Observable<NYTAPIMostPopular> streamFetchMost(String apiKey, String section) {
-//        NYTService nytService = NYTService.retrofit.create(NYTService.class);
-//        return nytService.getPostMost(apiKey, section)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(mainThread())
-//                .timeout(10, TimeUnit.SECONDS);
-//    }
-
     public static Observable<NYTAPIArticleSearch> streamFetchArticle(String apiKey, String fQuery, String sort) {
         NYTService nytService = NYTService.retrofit.create(NYTService.class);
         return nytService.getPostArticle(apiKey, fQuery, sort)

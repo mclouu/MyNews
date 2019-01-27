@@ -116,11 +116,18 @@
                 android:text="@string/search_box2" />
 
             <CheckBox
-                android:id="@+id/checkBox_entrepreneur"
+                android:id="@+id/checkBox_culture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onCheckboxClicked"
                 android:text="@string/search_box3" />
+
+            <CheckBox
+                android:id="@+id/checkBox_world"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onCheckboxClicked"
+                android:text="@string/search_box8" />
 
         </LinearLayout>
 
@@ -131,25 +138,32 @@
             android:layout_weight="0.5">
 
             <CheckBox
-                android:id="@+id/checkBox_politics"
+                android:id="@+id/checkBox_financial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onCheckboxClicked"
                 android:text="@string/search_box4" />
 
             <CheckBox
-                android:id="@+id/checkBox_sports"
+                android:id="@+id/checkBox_science"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onCheckboxClicked"
                 android:text="@string/search_box5" />
 
             <CheckBox
-                android:id="@+id/checkBox_travel"
+                android:id="@+id/checkBox_technology"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onCheckboxClicked"
                 android:text="@string/search_box6" />
+
+            <CheckBox
+                android:id="@+id/checkBox_nature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onCheckboxClicked"
+                android:text="@string/search_box7" />
 
 
         </LinearLayout>

@@ -47,7 +47,6 @@ public interface NYTService {
                                                    @Query("fq") String fQuery,
                                                    @Query("sort") String sort);
 
-    //    https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=603VoqkXe4T0cL2iwBnuUndaTW7vBz5G&q=google&fq=news_desk:("politics" "business")&begin_date=20180101&end_date=20190101
     @GET("svc/search/v2/articlesearch.json")
     Observable<NYTAPIArticleSearch> getPostSearch(@Query("api-key") String apiKey,
                                                   @Query("q") String query,

@@ -56,15 +56,19 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     CheckBox checkBox_Art;
     @BindView(R.id.checkBox_business)
     CheckBox checkBox_business;
-    @BindView(R.id.checkBox_entrepreneur)
-    CheckBox checkBox_entrepreneur;
+    @BindView(R.id.checkBox_culture)
+    CheckBox checkBox_culture;
+    @BindView(R.id.checkBox_world)
+    CheckBox checkBox_world;
 
-    @BindView(R.id.checkBox_politics)
+    @BindView(R.id.checkBox_financial)
     CheckBox checkBox_politics;
-    @BindView(R.id.checkBox_sports)
-    CheckBox checkBox_sports;
-    @BindView(R.id.checkBox_travel)
-    CheckBox checkBox_travel;
+    @BindView(R.id.checkBox_science)
+    CheckBox checkBox_science;
+    @BindView(R.id.checkBox_technology)
+    CheckBox checkBox_technology;
+    @BindView(R.id.checkBox_nature)
+    CheckBox checkBox_nature;
 
     private Calendar mCalendar;
     public static ArrayList<CardData> listSearch = new ArrayList<>();
@@ -120,11 +124,13 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
 
         int checkBoxArt;
         int checkBoxBusiness;
-        int checkBoxEntrepreneur;
+        int checkBoxCulture;
+        int checkBoxWorld;
 
-        int checkBoxPolitics;
-        int checkBoxSports;
-        int checkBoxTravel;
+        int checkBoxFinancial;
+        int checkBoxScience;
+        int checkBoxTechnology;
+        int checkBoxNature;
         switch (view.getId()) {
             case R.id.checkBox_Art:
                 if (checked) {
@@ -144,40 +150,60 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
                     SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxBusiness);
                 }
                 break;
-            case R.id.checkBox_entrepreneur:
+            case R.id.checkBox_culture:
                 if (checked) {
-                    checkBoxEntrepreneur = 1;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxEntrepreneur);
+                    checkBoxCulture = 1;
+                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxCulture);
                 } else {
-                    checkBoxEntrepreneur = 0;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxEntrepreneur);
+                    checkBoxCulture = 0;
+                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxCulture);
                 }
                 break;
-            case R.id.checkBox_politics:
+            case R.id.checkBox_world:
                 if (checked) {
-                    checkBoxPolitics = 1;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxPolitics);
+                    checkBoxWorld = 1;
+                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxWorld);
                 } else {
-                    checkBoxPolitics = 0;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxPolitics);
+                    checkBoxWorld = 0;
+                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxWorld);
                 }
                 break;
-            case R.id.checkBox_sports:
+
+
+            case R.id.checkBox_financial:
                 if (checked) {
-                    checkBoxSports = 1;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxSports);
+                    checkBoxFinancial = 1;
+                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxFinancial);
                 } else {
-                    checkBoxSports = 0;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxSports);
+                    checkBoxFinancial = 0;
+                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxFinancial);
                 }
                 break;
-            case R.id.checkBox_travel:
+            case R.id.checkBox_science:
                 if (checked) {
-                    checkBoxTravel = 1;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxTravel);
+                    checkBoxScience = 1;
+                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxScience);
                 } else {
-                    checkBoxTravel = 0;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxTravel);
+                    checkBoxScience = 0;
+                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxScience);
+                }
+                break;
+            case R.id.checkBox_technology:
+                if (checked) {
+                    checkBoxTechnology = 1;
+                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxTechnology);
+                } else {
+                    checkBoxTechnology = 0;
+                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxTechnology);
+                }
+                break;
+            case R.id.checkBox_nature:
+                if (checked) {
+                    checkBoxNature = 1;
+                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxNature);
+                } else {
+                    checkBoxNature = 0;
+                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxNature);
                 }
                 break;
         }
@@ -186,10 +212,12 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     private boolean isCheckBoxChecked() {
         return checkBox_Art.isChecked() ||
                 checkBox_business.isChecked() ||
-                checkBox_entrepreneur.isChecked() ||
+                checkBox_culture.isChecked() ||
+                checkBox_world.isChecked() ||
                 checkBox_politics.isChecked() ||
-                checkBox_sports.isChecked() ||
-                checkBox_travel.isChecked();
+                checkBox_science.isChecked() ||
+                checkBox_technology.isChecked()||
+                checkBox_nature.isChecked();
     }
 
     // ---------------------------------------------------------
@@ -298,6 +326,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     }
 
     private void resetEndDate() {
+
     }
 
     // ---------------------------------------------------------
