@@ -19,8 +19,8 @@ public class DocsItem {
     @SerializedName("section_name")
     private String sectionName;
 
-    @SerializedName("new_desk")
-    private String newDesk;
+    @SerializedName("news_desk")
+    private String newsDesk;
 
     @SerializedName("source")
     private String source;
@@ -70,8 +70,8 @@ public class DocsItem {
         return sectionName;
     }
 
-    public String getNewDesk() {
-        return newDesk;
+    public String getNewsDesk() {
+        return newsDesk;
     }
 
     public String getSource() {
