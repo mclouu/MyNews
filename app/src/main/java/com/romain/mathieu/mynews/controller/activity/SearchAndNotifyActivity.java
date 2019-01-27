@@ -18,7 +18,6 @@ import android.widget.Switch;
 import com.facebook.stetho.Stetho;
 import com.romain.mathieu.mynews.R;
 import com.romain.mathieu.mynews.model.CardData;
-import com.romain.mathieu.mynews.utils.SharedPreferencesUtils;
 import com.romain.mathieu.mynews.view.MyAdapter;
 
 import java.text.SimpleDateFormat;
@@ -62,7 +61,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     CheckBox checkBox_world;
 
     @BindView(R.id.checkBox_financial)
-    CheckBox checkBox_politics;
+    CheckBox checkBox_financial;
     @BindView(R.id.checkBox_science)
     CheckBox checkBox_science;
     @BindView(R.id.checkBox_technology)
@@ -74,7 +73,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     public static ArrayList<CardData> listSearch = new ArrayList<>();
     private MyAdapter adapter;
     private Disposable disposable;
-    private String query, newsDesk;
+    private String query, fquery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,91 +121,28 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
 
         boolean checked = ((CheckBox) view).isChecked();
 
-        int checkBoxArt;
-        int checkBoxBusiness;
-        int checkBoxCulture;
-        int checkBoxWorld;
+        String checkBox1 = "";
+        String checkBox2 = "";
+        String checkBox3 = "";
+        String checkBox4 = "";
 
-        int checkBoxFinancial;
-        int checkBoxScience;
-        int checkBoxTechnology;
-        int checkBoxNature;
-        switch (view.getId()) {
-            case R.id.checkBox_Art:
-                if (checked) {
-                    checkBoxArt = 1;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxArt);
-                } else {
-                    checkBoxArt = 0;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxArt);
-                }
-                break;
-            case R.id.checkBox_business:
-                if (checked) {
-                    checkBoxBusiness = 1;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxBusiness);
-                } else {
-                    checkBoxBusiness = 0;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxBusiness);
-                }
-                break;
-            case R.id.checkBox_culture:
-                if (checked) {
-                    checkBoxCulture = 1;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxCulture);
-                } else {
-                    checkBoxCulture = 0;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxCulture);
-                }
-                break;
-            case R.id.checkBox_world:
-                if (checked) {
-                    checkBoxWorld = 1;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxWorld);
-                } else {
-                    checkBoxWorld = 0;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxWorld);
-                }
-                break;
+        String checkBox5 = "";
+        String checkBox6 = "";
+        String checkBox7 = "";
+        String checkBox8 = "";
 
+        fquery = "news_desk:(";
 
-            case R.id.checkBox_financial:
-                if (checked) {
-                    checkBoxFinancial = 1;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxFinancial);
-                } else {
-                    checkBoxFinancial = 0;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxFinancial);
-                }
-                break;
-            case R.id.checkBox_science:
-                if (checked) {
-                    checkBoxScience = 1;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxScience);
-                } else {
-                    checkBoxScience = 0;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxScience);
-                }
-                break;
-            case R.id.checkBox_technology:
-                if (checked) {
-                    checkBoxTechnology = 1;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxTechnology);
-                } else {
-                    checkBoxTechnology = 0;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxTechnology);
-                }
-                break;
-            case R.id.checkBox_nature:
-                if (checked) {
-                    checkBoxNature = 1;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxNature);
-                } else {
-                    checkBoxNature = 0;
-                    SharedPreferencesUtils.SaveNotification(SearchAndNotifyActivity.this, checkBoxNature);
-                }
-                break;
-        }
+        if (checkBox_Art.isChecked()) fquery = fquery + "\"Art\"";
+        if (checkBox_business.isChecked()) fquery = fquery + "\"Business\"";
+        if (checkBox_culture.isChecked()) fquery = fquery + "\"Culture\"";
+        if (checkBox_world.isChecked()) fquery = fquery + "\"World\"";
+        if (checkBox_financial.isChecked()) fquery = fquery + "\"Financial\"";
+        if (checkBox_science.isChecked()) fquery = fquery + "\"Science\"";
+        if (checkBox_technology.isChecked()) fquery = fquery + "\"Technology\"";
+        if (checkBox_nature.isChecked()) fquery = fquery + "\"The Natural World\"";
+        if (fquery.contains("\"\"")) fquery = fquery.replace("\"\"", "\" \"");
+        fquery = fquery + ")";
     }
 
     private boolean isCheckBoxChecked() {
@@ -214,9 +150,9 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
                 checkBox_business.isChecked() ||
                 checkBox_culture.isChecked() ||
                 checkBox_world.isChecked() ||
-                checkBox_politics.isChecked() ||
+                checkBox_financial.isChecked() ||
                 checkBox_science.isChecked() ||
-                checkBox_technology.isChecked()||
+                checkBox_technology.isChecked() ||
                 checkBox_nature.isChecked();
     }
 
@@ -233,8 +169,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 query = s.toString().trim();
                 // if all the conditions return true then the button becomes enable
-                if (isQueryTermEditTextEmpty()) {
-//                    if (isQueryTermEditTextEmpty() && isCheckBoxChecked() && isDatesCorrect()) {
+                if (isQueryTermEditTextEmpty() && isCheckBoxChecked()) {
                     buttonSearch.setEnabled(true);
                 } else buttonSearch.setEnabled(false);
             }
@@ -255,7 +190,8 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
 
     public void onClickButton(View view) {
         Intent myIntent = new Intent(SearchAndNotifyActivity.this, ResultSearch.class);
-        myIntent.putExtra("QUERY_TERM", query); //Optional parameters
+        myIntent.putExtra("QUERY", query); //Optional parameters
+        myIntent.putExtra("FQUERY", fquery);
         this.startActivity(myIntent);
     }
 
