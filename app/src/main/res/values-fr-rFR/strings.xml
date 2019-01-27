@@ -26,4 +26,5 @@
     <string name="button_search">Recherche</string>
     <string name="switch_text">Activé les notifications (Une fois par jours)</string>
     <string name="app_name">MyNews</string>
+    <string name="category">catégorie</string>
 </resources>
