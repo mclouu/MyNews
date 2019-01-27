@@ -133,7 +133,7 @@
             android:orientation="vertical">
 
             <CheckBox
-                android:id="@+id/checkBox_financial"
+                android:id="@+id/checkBox_politics"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onCheckboxClicked"
@@ -154,7 +154,7 @@
                 android:text="@string/search_box6" />
 
             <CheckBox
-                android:id="@+id/checkBox_nature"
+                android:id="@+id/checkBox_movies"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onCheckboxClicked"
