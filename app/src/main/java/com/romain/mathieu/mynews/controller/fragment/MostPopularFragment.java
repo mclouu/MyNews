@@ -23,6 +23,7 @@ import com.romain.mathieu.mynews.R;
 import com.romain.mathieu.mynews.model.API.MostPopular.NYTAPIMostPopular;
 import com.romain.mathieu.mynews.model.CardData;
 import com.romain.mathieu.mynews.model.NYTStreams;
+import com.romain.mathieu.mynews.utils.MyConstant;
 import com.romain.mathieu.mynews.view.MyAdapter;
 
 import java.util.ArrayList;
@@ -109,9 +110,9 @@ public class MostPopularFragment extends Fragment implements SwipeRefreshLayout.
     private void executeHttpRequestWithRetrofit() {
 
         // 1.2 - Execute the stream subscribing to Observable defined inside GithubStream
-        // To change the section, change the constant value => GET_SECTION_TOP(n) (0 = all-sections [...] 35 = art)
-        this.disposable = NYTStreams.streamFetchMost("World").subscribeWith(
-                //this.disposable = NYTStreams.streamFetchMost(constant.GET_SECTION_MOST(31)).subscribeWith(
+        // To change the section, change section variable value below => (0 = all-sections [...] 35 = art)
+        int section = 27;
+        this.disposable = NYTStreams.streamFetchMost(MyConstant.GET_SECTION_MOST(section), MyConstant.API_KEY).subscribeWith(
                 new DisposableObserver<NYTAPIMostPopular>() {
                     @Override
                     public void onNext(NYTAPIMostPopular section) {

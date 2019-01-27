@@ -192,7 +192,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
 
     public void onClickButton(View view) {
         Toast.makeText(this, "tdb", Toast.LENGTH_SHORT).show();
-        this.executeHttpReques();
+//        this.executeHttpReques();
         Intent myIntent = new Intent(SearchAndNotifyActivity.this, ResultSearch.class);
         myIntent.putExtra(BUNDLED_EXTRA, SEARCH_ID); //Optional parameters
         this.startActivity(myIntent);
@@ -291,7 +291,9 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     // ---------------------------------------------------------
 
     private void executeHttpReques() {
-        Disposable disposable = NYTStreams.streamFetchSearch().subscribeWith(new DisposableObserver<NYTAPIArticleSearch>() {
+        Disposable disposable = NYTStreams
+                .streamFetchSearch(MyConstant.API_KEY, "google", "technology", "newest", "20180101", "20190101")
+                .subscribeWith(new DisposableObserver<NYTAPIArticleSearch>() {
             @Override
             public void onNext(NYTAPIArticleSearch section) {
                 Toast.makeText(SearchAndNotifyActivity.this, "onNext", Toast.LENGTH_SHORT).show();
