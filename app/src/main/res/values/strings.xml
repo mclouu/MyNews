@@ -23,10 +23,10 @@
     <string name="search_box3">Culture</string>
     <string name="search_box8">World</string>
 
-    <string name="search_box4">Financial</string>
+    <string name="search_box4">Politics</string>
     <string name="search_box5">Science</string>
     <string name="search_box6">Technology</string>
-    <string name="search_box7">Nature</string>
+    <string name="search_box7">Movies</string>
 
     <string name="button_search">Search</string>
     <string name="switch_text">Enable notifications (once per day)</string>
