@@ -60,20 +60,21 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     @BindView(R.id.checkBox_world)
     CheckBox checkBox_world;
 
-    @BindView(R.id.checkBox_financial)
-    CheckBox checkBox_financial;
+    @BindView(R.id.checkBox_politics)
+    CheckBox checkBox_Politics;
     @BindView(R.id.checkBox_science)
     CheckBox checkBox_science;
     @BindView(R.id.checkBox_technology)
     CheckBox checkBox_technology;
-    @BindView(R.id.checkBox_nature)
-    CheckBox checkBox_nature;
+    @BindView(R.id.checkBox_movies)
+    CheckBox checkBox_movies;
 
     private Calendar mCalendar;
     public static ArrayList<CardData> listSearch = new ArrayList<>();
     private MyAdapter adapter;
     private Disposable disposable;
     private String query, fquery;
+    private String mBeginDate, mEndDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,28 +120,16 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     // ---------------------------------------------------------
     public void onCheckboxClicked(View view) {
 
-        boolean checked = ((CheckBox) view).isChecked();
-
-        String checkBox1 = "";
-        String checkBox2 = "";
-        String checkBox3 = "";
-        String checkBox4 = "";
-
-        String checkBox5 = "";
-        String checkBox6 = "";
-        String checkBox7 = "";
-        String checkBox8 = "";
-
         fquery = "news_desk:(";
 
-        if (checkBox_Art.isChecked()) fquery = fquery + "\"Art\"";
+        if (checkBox_Art.isChecked()) fquery = fquery + "\"Arts\"";
         if (checkBox_business.isChecked()) fquery = fquery + "\"Business\"";
         if (checkBox_culture.isChecked()) fquery = fquery + "\"Culture\"";
         if (checkBox_world.isChecked()) fquery = fquery + "\"World\"";
-        if (checkBox_financial.isChecked()) fquery = fquery + "\"Financial\"";
+        if (checkBox_Politics.isChecked()) fquery = fquery + "\"Politics\"";
         if (checkBox_science.isChecked()) fquery = fquery + "\"Science\"";
         if (checkBox_technology.isChecked()) fquery = fquery + "\"Technology\"";
-        if (checkBox_nature.isChecked()) fquery = fquery + "\"The Natural World\"";
+        if (checkBox_movies.isChecked()) fquery = fquery + "\"Movies\"";
         if (fquery.contains("\"\"")) fquery = fquery.replace("\"\"", "\" \"");
         fquery = fquery + ")";
     }
@@ -150,10 +139,10 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
                 checkBox_business.isChecked() ||
                 checkBox_culture.isChecked() ||
                 checkBox_world.isChecked() ||
-                checkBox_financial.isChecked() ||
+                checkBox_Politics.isChecked() ||
                 checkBox_science.isChecked() ||
                 checkBox_technology.isChecked() ||
-                checkBox_nature.isChecked();
+                checkBox_movies.isChecked();
     }
 
     // ---------------------------------------------------------
@@ -192,6 +181,8 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         Intent myIntent = new Intent(SearchAndNotifyActivity.this, ResultSearch.class);
         myIntent.putExtra("QUERY", query); //Optional parameters
         myIntent.putExtra("FQUERY", fquery);
+        myIntent.putExtra("DATE_DEBUT", mBeginDate);
+        myIntent.putExtra("DATE_END", mEndDate);
         this.startActivity(myIntent);
     }
 
@@ -245,17 +236,21 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     }
 
     public void updateBeginDateLabel() {
-        String mFormat = "dd/MM/yyy";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(mFormat, Locale.US);
+        String mFormat = "dd/MM/yyyy";
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat(mFormat, Locale.US);
         @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyyMMdd");
+
         datedebut.setText(simpleDateFormat.format(mCalendar.getTime()));
+        mBeginDate = simpleDateFormat2.format(mCalendar.getTime());
     }
 
     public void updateEndDateLabel() {
-        String mFormat = "dd/MM/yyy";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(mFormat, Locale.US);
+        String mFormat = "dd/MM/yyyy";
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat(mFormat, Locale.US);
         @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyyMMdd");
+
         datefin.setText(simpleDateFormat.format(mCalendar.getTime()));
+        mEndDate = simpleDateFormat2.format(mCalendar.getTime());
     }
 
     private void resetBeginDate() {
