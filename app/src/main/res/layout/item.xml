@@ -31,11 +31,11 @@
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_below="@id/subTitle"
+        android:layout_alignParentEnd="true"
         android:layout_weight="1"
-        android:paddingEnd="8dp"
         android:paddingTop="9dp"
+        android:paddingEnd="8dp"
         android:text=""
         android:textColor="@color/colorOrange" />
 
@@ -47,8 +47,8 @@
         android:layout_toEndOf="@+id/thumbnail"
         android:layout_weight="1"
         android:maxLines="2"
-        android:paddingEnd="8dp"
         android:paddingTop="8dp"
+        android:paddingEnd="8dp"
         android:text=""
         android:textSize="20dp" />
 

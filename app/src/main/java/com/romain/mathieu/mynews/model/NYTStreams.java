@@ -7,7 +7,6 @@ package com.romain.mathieu.mynews.model;
 import com.romain.mathieu.mynews.model.API.ArticleSearch.NYTAPIArticleSearch;
 import com.romain.mathieu.mynews.model.API.MostPopular.NYTAPIMostPopular;
 import com.romain.mathieu.mynews.model.API.TopStories.NYTAPITopstories;
-import com.romain.mathieu.mynews.utils.MyConstant;
 
 import java.util.concurrent.TimeUnit;
 
