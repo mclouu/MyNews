@@ -1,11 +1,12 @@
 package com.romain.mathieu.mynews.controller.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import com.romain.mathieu.mynews.utils.MyConstant;
 import com.romain.mathieu.mynews.view.MyAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +37,7 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
     public static ArrayList<CardData> listResut = new ArrayList<>();
     MyAdapter adapter;
     LinearLayoutManager llm;
-    String queryResult ="";
+    String queryResult = "";
 
 
     @Override
@@ -54,16 +56,14 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
 
         queryResult = getIntent().getStringExtra("QUERY_TERM");
 
-        Log.e("TDB resultat", queryResult);
-
-        this.executeHttpReques();
+        this.executeHttpRequest();
 
     }
 
     @Override
     public void onRefresh() {
         progressBar.setVisibility(View.VISIBLE);
-        this.executeHttpReques();
+        this.executeHttpRequest();
         adapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
 
@@ -73,7 +73,7 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
     // HTTP (RxJAVA & Retrofit)
     // ---------------------------------------------------------
 
-    private void executeHttpReques() {
+    private void executeHttpRequest() {
         String query = queryResult;
         String fQuery = "business";
         String sort = "newest";
@@ -84,14 +84,19 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
                 .subscribeWith(new DisposableObserver<NYTAPIArticleSearch>() {
                     @Override
                     public void onNext(NYTAPIArticleSearch section) {
-                        Toast.makeText(ResultSearch.this, "Yo tdb", Toast.LENGTH_SHORT).show();
-                        updateUIWithListOfArticle(section);
+                        List articles = section.getResponse().getDocs();
+                        if (articles.size() == 0) {
+                            emptySearchResultsError();
+                        } else {
+                            updateUIWithListOfArticle(section);
+                        }
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         progressBar.setVisibility(View.GONE);
-                        Toast.makeText(ResultSearch.this, "Error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ResultSearch.this, getString(R.string.error), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -106,8 +111,8 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
             listResut.clear();
         }
 
-        int num_results = 10;
-        for (int i = 0; i < num_results; i++) {
+        List articles = response.getResponse().getDocs();
+        for (int i = 0; i < articles.size(); i++) {
             String section = response.getResponse().getDocs().get(i).getNewsDesk();
             String title = response.getResponse().getDocs().get(i).getSnippet();
             String imageURL;
@@ -119,6 +124,7 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
             String articleURL = response.getResponse().getDocs().get(i).getWebUrl();
             String date = response.getResponse().getDocs().get(i).getPubDate();
             date = date.replace("T", " - ");
+            date = date.replace("+0000", "");
             listResut.add(new CardData(
                     section + "",
                     title + "",
@@ -128,5 +134,25 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
         }
 
         adapter.notifyDataSetChanged();
+    }
+
+    private void emptySearchResultsError() {
+
+        // Build an AlertDialog for the Help section
+        AlertDialog.Builder builder = new AlertDialog.Builder(ResultSearch.this);
+        // Set Title and Message content
+        builder.setTitle(R.string.Error);
+        builder.setMessage(R.string.noResults);
+        // Neutral button
+        builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                finish();
+            }
+        });
+
+        builder.show();
+
     }
 }
