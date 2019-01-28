@@ -12,23 +12,9 @@ import static com.romain.mathieu.mynews.utils.MyConstant.MY_FILE;
 public class SharedPreferencesUtils {
 
 
-
     // ------------------------------
     // - SAVE AN PRIMITIVE VARIABLE -
     // ------------------------------
-
-
-    public static void SaveNotification(Context context, int MyVariableInt) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(MyConstant.KEY_INT, MyVariableInt);
-        editor.apply();
-    }
-
-    public static int getNotification(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
-        return sharedPreferences.getInt(MyConstant.KEY_INT, 0);
-    }
 
     static void removeNotification(Context context, String prefsName, String key) {
         SharedPreferences preferences = context.getSharedPreferences(prefsName, Context.MODE_PRIVATE);
@@ -42,6 +28,126 @@ public class SharedPreferencesUtils {
         return sharedPreferences.contains(MyConstant.KEY_INT);
     }
 
+    public static void SaveNotificationSwitch(Context context, boolean MyVariableBool) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(MyConstant.KEY_BOOL_SWITCH, MyVariableBool);
+        editor.apply();
+    }
+
+    public static boolean getNotificationSwitch(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(MyConstant.KEY_BOOL_SWITCH, false);
+    }
+
+    public static void SaveNotificationQuery(Context context, String MyVariableString) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(MyConstant.KEY_STRING, MyVariableString);
+        editor.apply();
+    }
+
+    public static String getNotificationQuery(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(MyConstant.KEY_STRING, "");
+    }
+
+    public static void SaveNotificationBoxArts(Context context, Boolean MyVariableBoolen) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(MyConstant.KEY_BOOL_ARTS, MyVariableBoolen);
+        editor.apply();
+    }
+
+    public static boolean getNotificationBoxArts(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(MyConstant.KEY_BOOL_ARTS, false);
+    }
+
+    public static void SaveNotificationBoxBusiness(Context context, Boolean MyVariableBoolen) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(MyConstant.KEY_BOOL_BUSINESS, MyVariableBoolen);
+        editor.apply();
+    }
+
+    public static boolean getNotificationBoxBusiness(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(MyConstant.KEY_BOOL_BUSINESS, false);
+    }
+
+    public static void SaveNotificationBoxCulture(Context context, Boolean MyVariableBoolen) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(MyConstant.KEY_BOOL_CULTURE, MyVariableBoolen);
+        editor.apply();
+    }
+
+    public static boolean getNotificationBoxCulture(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(MyConstant.KEY_BOOL_CULTURE, false);
+    }
+
+    public static void SaveNotificationBoxWorld(Context context, Boolean MyVariableBoolen) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(MyConstant.KEY_BOOL_WORLD, MyVariableBoolen);
+        editor.apply();
+    }
+
+    public static boolean getNotificationBoxWorlde(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(MyConstant.KEY_BOOL_WORLD, false);
+    }
+
+
+    public static void SaveNotificationBoxPolitic(Context context, Boolean MyVariableBoolen) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(MyConstant.KEY_BOOL_POLITIC, MyVariableBoolen);
+        editor.apply();
+    }
+
+    public static boolean getNotificationBoxPolitic(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(MyConstant.KEY_BOOL_POLITIC, false);
+    }
+
+    public static void SaveNotificationBoxScience(Context context, Boolean MyVariableBoolen) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(MyConstant.KEY_BOOL_SCIENCE, MyVariableBoolen);
+        editor.apply();
+    }
+
+    public static boolean getNotificationBoxScience(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(MyConstant.KEY_BOOL_SCIENCE, false);
+    }
+
+    public static void SaveNotificationBoxTechnologie(Context context, Boolean MyVariableBoolen) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(MyConstant.KEY_BOOL_TECHNOLOGIE, MyVariableBoolen);
+        editor.apply();
+    }
+
+    public static boolean getNotificationBoxTechnologie(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(MyConstant.KEY_BOOL_TECHNOLOGIE, false);
+    }
+
+    public static void SaveNotificationBoxMovies(Context context, Boolean MyVariableBoolen) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(MyConstant.KEY_BOOL_MOVIES, MyVariableBoolen);
+        editor.apply();
+    }
+
+    public static boolean getNotificationBoxMovies(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(MyConstant.KEY_BOOL_MOVIES, false);
+    }
 
     // ----------------------------
     // - SAVE AN OBJECT WITH GSON -
