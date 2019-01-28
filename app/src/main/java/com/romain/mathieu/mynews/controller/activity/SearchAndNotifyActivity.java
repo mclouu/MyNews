@@ -1,7 +1,10 @@
 package com.romain.mathieu.mynews.controller.activity;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,13 +14,18 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
 import com.romain.mathieu.mynews.R;
 import com.romain.mathieu.mynews.model.CardData;
+import com.romain.mathieu.mynews.model.MyBroadcastReceiver;
+import com.romain.mathieu.mynews.utils.SharedPreferencesUtils;
 import com.romain.mathieu.mynews.view.MyAdapter;
 
 import java.text.SimpleDateFormat;
@@ -41,15 +49,21 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
 
     @BindView(R.id.button_search)
     Button buttonSearch;
+    @BindView(R.id.notification_switch)
+    Switch switchNotif;
+
     @BindView(R.id.search_editText)
     EditText search_query;
+
+    @BindView(R.id.begin_date_textview_label)
+    TextView textViewBeginDate;
     @BindView(R.id.begin_date_edittext)
     EditText datedebut;
+    @BindView(R.id.end_date_textview_label)
+    TextView textViewEndDate;
     @BindView(R.id.end_date_edittext)
     EditText datefin;
 
-    @BindView(R.id.notification_switch)
-    Switch switchNotif;
 
     @BindView(R.id.checkBox_Art)
     CheckBox checkBox_Art;
@@ -95,19 +109,36 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     // CONFIGURE LAYOUT IF IT'S NOTIFICATION OR SEARCH WITH EXTRA AND SWITCH
     // ---------------------------------------------------------
     private void configureLayout() {
+
+
         String extraValue = getIntent().getStringExtra(BUNDLED_EXTRA);
         switch (extraValue) {
             case SEARCH_ID:
                 setTitle(R.string.Search_title);
-                this.editTextQueryTerm();
-                this.resetBeginDate();
-                this.resetEndDate();
                 this.OnClickBeginDateListener();
                 this.OnClickEndDateListener();
+                this.addListenerEditTextSearch();
+
                 switchNotif.setVisibility(View.GONE);
                 break;
             case NOTIF_ID:
                 setTitle(R.string.notif);
+                this.OnCheckChangeListenerSwitch();
+                this.addListenerEditTextSearch();
+                this.getSharedPref();
+
+                this.addListenerOnCheckBoxNotifActivity(checkBox_Art);
+                this.addListenerOnCheckBoxNotifActivity(checkBox_business);
+                this.addListenerOnCheckBoxNotifActivity(checkBox_culture);
+                this.addListenerOnCheckBoxNotifActivity(checkBox_world);
+
+                this.addListenerOnCheckBoxNotifActivity(checkBox_Politics);
+                this.addListenerOnCheckBoxNotifActivity(checkBox_science);
+                this.addListenerOnCheckBoxNotifActivity(checkBox_technology);
+                this.addListenerOnCheckBoxNotifActivity(checkBox_movies);
+
+                textViewBeginDate.setVisibility(View.GONE);
+                textViewEndDate.setVisibility(View.GONE);
                 buttonSearch.setVisibility(View.GONE);
                 datedebut.setVisibility(View.GONE);
                 datefin.setVisibility(View.GONE);
@@ -134,6 +165,8 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         fquery = fquery + ")";
     }
 
+    // TODO: 27/01/2019 comprendre ceci
+
     private boolean isCheckBoxChecked() {
         return checkBox_Art.isChecked() ||
                 checkBox_business.isChecked() ||
@@ -145,10 +178,28 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
                 checkBox_movies.isChecked();
     }
 
+    private void addListenerOnCheckBoxNotifActivity(final CheckBox checkBox) {
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferencesUtils.SaveNotificationBoxArts(SearchAndNotifyActivity.this, checkBox_Art.isChecked());
+                SharedPreferencesUtils.SaveNotificationBoxBusiness(SearchAndNotifyActivity.this, checkBox_business.isChecked());
+                SharedPreferencesUtils.SaveNotificationBoxCulture(SearchAndNotifyActivity.this, checkBox_culture.isChecked());
+                SharedPreferencesUtils.SaveNotificationBoxWorld(SearchAndNotifyActivity.this, checkBox_world.isChecked());
+
+                SharedPreferencesUtils.SaveNotificationBoxPolitic(SearchAndNotifyActivity.this, checkBox_Politics.isChecked());
+                SharedPreferencesUtils.SaveNotificationBoxScience(SearchAndNotifyActivity.this, checkBox_science.isChecked());
+                SharedPreferencesUtils.SaveNotificationBoxTechnologie(SearchAndNotifyActivity.this, checkBox_technology.isChecked());
+                SharedPreferencesUtils.SaveNotificationBoxMovies(SearchAndNotifyActivity.this, checkBox_movies.isChecked());
+
+            }
+        });
+    }
+
     // ---------------------------------------------------------
     // TEXT WATCHER ON THE EDIT TEXT
     // ---------------------------------------------------------
-    private void editTextQueryTerm() {
+    private void addListenerEditTextSearch() {
         search_query.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -157,6 +208,9 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 query = s.toString().trim();
+                if (getIntent().getStringExtra(BUNDLED_EXTRA).equals(NOTIF_ID)) {
+                    SharedPreferencesUtils.SaveNotificationQuery(SearchAndNotifyActivity.this, query);
+                }
                 // if all the conditions return true then the button becomes enable
                 if (isQueryTermEditTextEmpty() && isCheckBoxChecked()) {
                     buttonSearch.setEnabled(true);
@@ -167,7 +221,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-    }
+    } // TODO: 27/01/2019 comprendre ceci
 
     private boolean isQueryTermEditTextEmpty() {
         return !query.isEmpty();
@@ -187,7 +241,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     }
 
     // ---------------------------------------------------------
-    // BEGIN AND END DATE : TextView Listener + DatePicker + Label update
+    // BEGIN AND END DATE : TextView Listener DatePicker + Label update
     // ---------------------------------------------------------
     public void OnClickBeginDateListener() {
         mCalendar = Calendar.getInstance();
@@ -242,7 +296,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
 
         datedebut.setText(simpleDateFormat.format(mCalendar.getTime()));
         mBeginDate = simpleDateFormat2.format(mCalendar.getTime());
-    }
+    } // TODO: 27/01/2019 comprendre ceci
 
     public void updateEndDateLabel() {
         String mFormat = "dd/MM/yyyy";
@@ -253,13 +307,74 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         mEndDate = simpleDateFormat2.format(mCalendar.getTime());
     }
 
-    private void resetBeginDate() {
+    // ---------------------------------------------------------
+    // SWITCH VIEW + SAVE IN SHAREDPREFERENCES
+    // ---------------------------------------------------------
+    public void OnCheckChangeListenerSwitch() {
+        switchNotif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    alarmReceiver(SearchAndNotifyActivity.this);
+                    SharedPreferencesUtils.SaveNotificationSwitch(SearchAndNotifyActivity.this, true);
+                    Toast.makeText(SearchAndNotifyActivity.this, getString(R.string.notif_on), Toast.LENGTH_SHORT).show();
+                } else {
+                    SharedPreferencesUtils.SaveNotificationSwitch(SearchAndNotifyActivity.this, false);
+                    Toast.makeText(SearchAndNotifyActivity.this, getString(R.string.notif_off), Toast.LENGTH_SHORT).show();
+                    checkBox_Art.setChecked(false);
+                    checkBox_business.setChecked(false);
+                    checkBox_culture.setChecked(false);
+                    checkBox_world.setChecked(false);
+
+                    checkBox_Politics.setChecked(false);
+                    checkBox_science.setChecked(false);
+                    checkBox_technology.setChecked(false);
+                    checkBox_movies.setChecked(false);
+                    search_query.setText("");
+                }
+            }
+        });
     }
 
-    private void resetEndDate() {
 
+    private void getSharedPref() {
+        switchNotif.setChecked(SharedPreferencesUtils.getNotificationSwitch(SearchAndNotifyActivity.this));
+
+        search_query.setText(SharedPreferencesUtils.getNotificationQuery(SearchAndNotifyActivity.this));
+
+        checkBox_Art.setChecked(SharedPreferencesUtils.getNotificationBoxArts(SearchAndNotifyActivity.this));
+        checkBox_business.setChecked(SharedPreferencesUtils.getNotificationBoxBusiness(SearchAndNotifyActivity.this));
+        checkBox_culture.setChecked(SharedPreferencesUtils.getNotificationBoxCulture(SearchAndNotifyActivity.this));
+        checkBox_world.setChecked(SharedPreferencesUtils.getNotificationBoxWorlde(SearchAndNotifyActivity.this));
+
+        checkBox_Politics.setChecked(SharedPreferencesUtils.getNotificationBoxPolitic(SearchAndNotifyActivity.this));
+        checkBox_science.setChecked(SharedPreferencesUtils.getNotificationBoxScience(SearchAndNotifyActivity.this));
+        checkBox_technology.setChecked(SharedPreferencesUtils.getNotificationBoxTechnologie(SearchAndNotifyActivity.this));
+        checkBox_movies.setChecked(SharedPreferencesUtils.getNotificationBoxMovies(SearchAndNotifyActivity.this));
     }
+    // ---------------------------------------------------------
+    // ALARM RECEIVER
+    // ---------------------------------------------------------
 
+    private void alarmReceiver(Context context) {
+
+        AlarmManager alarmManager;
+        PendingIntent pendingIntent;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.add(Calendar.DATE, 1);
+
+        alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, MyBroadcastReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+
+
+        if (alarmManager != null) {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        }
+    }
     // ---------------------------------------------------------
     // DESTROY
     // ---------------------------------------------------------
