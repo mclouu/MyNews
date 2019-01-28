@@ -37,4 +37,6 @@
     <string name="noResults">Aucun résultat trouvé, réessayez</string>
     <string name="obligation">*Vous devez choisir au minimum une catégorie</string>
     <string name="categorie">categorie</string>
+    <string name="notif_on">Notification activé</string>
+    <string name="notif_off">Notification desactivé</string>
 </resources>

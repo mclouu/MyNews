@@ -39,4 +39,6 @@
     <string name="noResults">No search results found, try again</string>
     <string name="obligation">*You have to select one category at least</string>
     <string name="categorie">categorie</string>
+    <string name="notif_on">Notification enable</string>
+    <string name="notif_off">Notification disable</string>
 </resources>
