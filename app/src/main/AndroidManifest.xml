@@ -23,6 +23,11 @@
         <activity android:name=".controller.activity.WebViewActivity" />
         <activity android:name=".controller.activity.SearchAndNotifyActivity" />
         <activity android:name=".controller.activity.ResultSearch"></activity>
+
+        <receiver
+            android:name=".model.MyBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>
