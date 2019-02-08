@@ -18,14 +18,14 @@ public class MyConstant {
     static final String KEY_LIST = "KEY_LIST";
     static final String KEY_BOOL_SWITCH = "KEY_BOOL_SWITCH";
 
-    public static final String KEY_BOOL_ARTS = "KEY_BOOL_ARTS";
-    public static final String KEY_BOOL_BUSINESS = "KEY_BOOL_BUSINESS";
-    public static final String KEY_BOOL_CULTURE = "KEY_BOOL_CULTURE";
-    public static final String KEY_BOOL_WORLD = "KEY_BOOL_WORLD";
-    public static final String KEY_BOOL_POLITIC = "KEY_BOOL_POLITIC";
-    public static final String KEY_BOOL_SCIENCE = "KEY_BOOL_SCIENCE";
-    public static final String KEY_BOOL_TECHNOLOGIE = "KEY_BOOL_TECHNOLOGIE";
-    public static final String KEY_BOOL_MOVIES = "KEY_BOOL_MOVIES";
+    static final String KEY_BOOL_ARTS = "KEY_BOOL_ARTS";
+    static final String KEY_BOOL_BUSINESS = "KEY_BOOL_BUSINESS";
+    static final String KEY_BOOL_CULTURE = "KEY_BOOL_CULTURE";
+    static final String KEY_BOOL_WORLD = "KEY_BOOL_WORLD";
+    static final String KEY_BOOL_POLITIC = "KEY_BOOL_POLITIC";
+    static final String KEY_BOOL_SCIENCE = "KEY_BOOL_SCIENCE";
+    static final String KEY_BOOL_TECHNOLOGIE = "KEY_BOOL_TECHNOLOGIE";
+    static final String KEY_BOOL_MOVIES = "KEY_BOOL_MOVIES";
 
 
     public String BASE_URL = "http://api.nytimes.com/"; // http://api.nytimes.com/svc/topstories/v2/world.json?api-key=e5ace90626ec4c7495500a0dbb327980
