@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><!-- ~ Created by Romain Mathieu => https://github.com/mclouu -->
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.romain.mathieu.mynews">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -22,7 +23,7 @@
         </activity>
         <activity android:name=".controller.activity.WebViewActivity" />
         <activity android:name=".controller.activity.SearchAndNotifyActivity" />
-        <activity android:name=".controller.activity.ResultSearch"></activity>
+        <activity android:name=".controller.activity.ResultSearch" />
 
         <receiver
             android:name=".model.MyBroadcastReceiver"
