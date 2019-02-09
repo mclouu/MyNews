@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -25,6 +26,7 @@ import com.facebook.stetho.Stetho;
 import com.romain.mathieu.mynews.R;
 import com.romain.mathieu.mynews.model.CardData;
 import com.romain.mathieu.mynews.model.MyBroadcastReceiver;
+import com.romain.mathieu.mynews.utils.MyConstant;
 import com.romain.mathieu.mynews.utils.SharedPreferencesUtils;
 import com.romain.mathieu.mynews.view.MyAdapter;
 
@@ -356,24 +358,25 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     // ---------------------------------------------------------
 
     private void alarmReceiver(Context context) {
+        Log.e("TDB", "alarmManager ok !");
 
         AlarmManager alarmManager;
         PendingIntent pendingIntent;
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 12);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.add(Calendar.DATE, 1);
+        MyConstant myConstant = new MyConstant();
 
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, MyBroadcastReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+//        calendar.set(Calendar.HOUR_OF_DAY, myConstant.heures);
+//        calendar.set(Calendar.MINUTE, myConstant.minutes);
+        calendar.set(Calendar.SECOND, myConstant.secondes);
 
-        if (alarmManager != null) {
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-        }
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+//        alarmManager.setExact(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+
     }
     // ---------------------------------------------------------
     // DESTROY
