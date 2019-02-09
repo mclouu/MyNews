@@ -54,4 +54,10 @@ public interface NYTService {
                                                   @Query("sort") String sort,
                                                   @Query("begin_date") String beginDate,
                                                   @Query("end_date") String endDate);
+
+    @GET("svc/search/v2/articlesearch.json")
+    Observable<NYTAPIArticleSearch> getPostNotif(@Query("api-key") String apiKey,
+                                                 @Query("q") String query,
+                                                 @Query("fq") String fQuery,
+                                                 @Query("sort") String sort);
 }

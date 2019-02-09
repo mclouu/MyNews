@@ -48,4 +48,12 @@ public class NYTStreams {
                 .observeOn(mainThread())
                 .timeout(10, TimeUnit.SECONDS);
     }
+
+    public static Observable<NYTAPIArticleSearch> streamFetchNotif(String apiKey, String query, String fQuery, String sort) {
+        NYTService nytService = NYTService.retrofit.create(NYTService.class);
+        return nytService.getPostNotif(apiKey, query, fQuery, sort)
+                .subscribeOn(Schedulers.io())
+                .observeOn(mainThread())
+                .timeout(10, TimeUnit.SECONDS);
+    }
 }
