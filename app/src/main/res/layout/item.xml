@@ -13,15 +13,22 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_margin="8dp"
-        android:layout_weight="1"
         android:background="@color/colorAccent" />
+
+    <ImageView
+        android:id="@+id/is_view"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="8dp"
+        android:src="@drawable/ic_remove_red_eye_black_24dp" />
+    <!--android:visibility="gone" />-->
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/thumbnail"
-        android:layout_weight="1"
         android:paddingTop="9dp"
         android:text=""
         android:textColor="@color/colorBlack"
@@ -33,7 +40,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/subTitle"
         android:layout_alignParentEnd="true"
-        android:layout_weight="1"
         android:paddingTop="9dp"
         android:paddingEnd="8dp"
         android:text=""
@@ -45,12 +51,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:layout_toEndOf="@+id/thumbnail"
-        android:layout_weight="1"
         android:maxLines="2"
         android:paddingTop="8dp"
         android:paddingEnd="8dp"
         android:text=""
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <View
         android:layout_width="match_parent"
