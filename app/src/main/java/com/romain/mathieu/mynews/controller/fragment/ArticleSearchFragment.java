@@ -145,7 +145,7 @@ public class ArticleSearchFragment extends Fragment implements SwipeRefreshLayou
             list.clear();
         }
 
-        int num_results = 10;
+        int num_results = response.getResponse().getDocs().size();
         for (int i = 0; i < num_results; i++) {
             String section = response.getResponse().getDocs().get(i).getNewsDesk();
             String title = response.getResponse().getDocs().get(i).getSnippet();
