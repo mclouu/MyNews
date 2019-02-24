@@ -21,8 +21,8 @@
         android:layout_height="20dp"
         android:layout_alignParentEnd="true"
         android:layout_margin="8dp"
-        android:src="@drawable/ic_remove_red_eye_black_24dp" />
-    <!--android:visibility="gone" />-->
+        android:src="@drawable/ic_remove_red_eye_black_24dp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/title"

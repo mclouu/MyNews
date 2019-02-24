@@ -59,7 +59,7 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
         fqueryResult = getIntent().getStringExtra("FQUERY");
         fqueryResult = fqueryResult.trim();
 
-        dateDebut = getIntent().getStringExtra("DATE_DEBUT"); //20000101
+        dateDebut = getIntent().getStringExtra("DATE_DEBUT");
         dateFin = getIntent().getStringExtra("DATE_END");
 
         this.executeHttpRequest();
