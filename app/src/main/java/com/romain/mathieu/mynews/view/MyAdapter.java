@@ -32,14 +32,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ArticleViewHolder>
     private Context context;
     private ArrayList<CardData> mdatas;
 
-    public MyAdapter(Context context) {
-        this.context = context;
-    }
-
     public MyAdapter(ArrayList<CardData> mlist) {
         this.mdatas = mlist;
     }
 
+    @NonNull
     @Override
     public ArticleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
@@ -93,7 +90,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ArticleViewHolder>
         }
 
         @OnClick(R.id.relativeLayout)
-        void submit(View view) {
+        void submit() {
             int position = getAdapterPosition();
 
             Intent intent = new Intent(context, WebViewActivity.class);
