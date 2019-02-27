@@ -18,19 +18,15 @@ import io.reactivex.observers.DisposableObserver;
 
 public class MyBroadcastReceiver extends BroadcastReceiver {
 
-    private static final String CHANNEL_ID = "NOTIFICATION_CHANNEL";
     String fqueryResult = "";
     String queryResult = "";
-    int numberArticles = 0;
     private String messageNotif = "";
+
     private Disposable disposable;
     //    This method is executed at midnight every day
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
-
-        Log.e("TDBALARM", "Coucou");
 
         queryResult = SharedPreferencesUtils.getNotificationQuery(context);
 
@@ -55,13 +51,8 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         if (fqueryResult.contains("\"\"")) fqueryResult = fqueryResult.replace("\"\"", "\" \"");
         fqueryResult = fqueryResult + ")";
 
-        Log.e("TDB query", queryResult);
-        Log.e("TDB fquery", fqueryResult);
-
         this.executeHttpRequest(context);
-//        createNotification(context, CHANNEL_ID);
-
-
+        disposeWhenDestroy();
     }
 
     private void executeHttpRequest(final Context context) {
@@ -73,26 +64,24 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                 .subscribeWith(new DisposableObserver<NYTAPIArticleSearch>() {
                     @Override
                     public void onNext(NYTAPIArticleSearch section) {
-                        updateUIWithListOfArticle(section);
-                        messageNotif = "Vous avez " + String.valueOf(section.getResponse().getDocs().size() + " articles correspondants à vos derniers critères. ");
+                        messageNotif = "Vous avez " + returnTheNumberOfItemsFound(section) + " articles correspondants à vos derniers critères. ";
                         send(context);
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("TDB", "error :(");
                     }
 
                     @Override
                     public void onComplete() {
-                        Log.e("TDB", "Requete ok ;)");
                     }
                 });
     }
 
-    private void updateUIWithListOfArticle(NYTAPIArticleSearch response) {
+    private int returnTheNumberOfItemsFound(NYTAPIArticleSearch response) {
         List articles = response.getResponse().getDocs();
-        int nombreArticle = articles.size();
+        return  articles.size();
     }
 
     private void send(Context context) {
