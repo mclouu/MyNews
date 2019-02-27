@@ -167,8 +167,6 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         fquery = fquery + ")";
     }
 
-    // TODO: 27/01/2019 comprendre ceci
-
     private boolean isCheckBoxChecked() {
         return checkBox_Art.isChecked() ||
                 checkBox_business.isChecked() ||
@@ -213,10 +211,6 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
                 if (getIntent().getStringExtra(BUNDLED_EXTRA).equals(NOTIF_ID)) {
                     SharedPreferencesUtils.SaveNotificationQuery(SearchAndNotifyActivity.this, query);
                 }
-                // if all the conditions return true then the button becomes enable
-                if (isQueryTermEditTextEmpty() && isCheckBoxChecked()) {
-                    buttonSearch.setEnabled(true);
-                } else buttonSearch.setEnabled(false);
             }
 
             @Override
@@ -234,12 +228,17 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     // ---------------------------------------------------------
 
     public void onClickButton(View view) {
-        Intent myIntent = new Intent(SearchAndNotifyActivity.this, ResultSearch.class);
-        myIntent.putExtra("QUERY", query); //Optional parameters
-        myIntent.putExtra("FQUERY", fquery);
-        myIntent.putExtra("DATE_DEBUT", mBeginDate);
-        myIntent.putExtra("DATE_END", mEndDate);
-        this.startActivity(myIntent);
+        if (isCheckBoxChecked()){
+            Intent myIntent = new Intent(SearchAndNotifyActivity.this, ResultSearch.class);
+            myIntent.putExtra("QUERY", query); //Optional parameters
+            myIntent.putExtra("FQUERY", fquery);
+            myIntent.putExtra("DATE_DEBUT", mBeginDate);
+            myIntent.putExtra("DATE_END", mEndDate);
+            this.startActivity(myIntent);
+        } else {
+            Toast.makeText(this, getString(R.string.msg_categorie_is_not_checked), Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     // ---------------------------------------------------------
@@ -298,7 +297,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
 
         datedebut.setText(simpleDateFormat.format(mCalendar.getTime()));
         mBeginDate = simpleDateFormat2.format(mCalendar.getTime());
-    } // TODO: 27/01/2019 comprendre ceci
+    }
 
     public void updateEndDateLabel() {
         String mFormat = "dd/MM/yyyy";
@@ -358,7 +357,6 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     // ---------------------------------------------------------
 
     private void alarmReceiver(Context context) {
-        Log.e("TDB", "alarmManager ok !");
 
         AlarmManager alarmManager;
         PendingIntent pendingIntent;
@@ -375,7 +373,6 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         calendar.set(Calendar.SECOND, myConstant.secondes);
 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-//        alarmManager.setExact(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
 
     }
     // ---------------------------------------------------------

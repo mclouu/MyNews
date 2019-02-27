@@ -39,4 +39,5 @@
     <string name="categorie">categorie</string>
     <string name="notif_on">Notification activé</string>
     <string name="notif_off">Notification desactivé</string>
+    <string name="msg_categorie_is_not_checked">Vous n\'avez choisi aucune catégorie.</string>
 </resources>

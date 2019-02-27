@@ -41,4 +41,5 @@
     <string name="categorie">categorie</string>
     <string name="notif_on">Notification enable</string>
     <string name="notif_off">Notification disable</string>
+    <string name="msg_categorie_is_not_checked">You did not choose any category.</string>
 </resources>
