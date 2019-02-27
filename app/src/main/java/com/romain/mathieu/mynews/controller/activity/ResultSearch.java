@@ -15,6 +15,7 @@ import com.romain.mathieu.mynews.R;
 import com.romain.mathieu.mynews.model.API.ArticleSearch.NYTAPIArticleSearch;
 import com.romain.mathieu.mynews.model.CardData;
 import com.romain.mathieu.mynews.model.NYTStreams;
+import com.romain.mathieu.mynews.model.ReformatDate;
 import com.romain.mathieu.mynews.utils.MyConstant;
 import com.romain.mathieu.mynews.view.MyAdapter;
 
@@ -129,12 +130,10 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
             }
             String articleURL = response.getResponse().getDocs().get(i).getWebUrl();
             String date = response.getResponse().getDocs().get(i).getPubDate();
-            date = date.replace("T", " - ");
-            date = date.replace("+0000", "");
             listResut.add(new CardData(
                     section + "",
                     title + "",
-                    date + "",
+                    ReformatDate.returnBetterDateSearch(date) + "",
                     "https://www.nytimes.com/" + imageURL,
                     articleURL + ""));
         }

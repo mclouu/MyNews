@@ -22,6 +22,7 @@ import com.romain.mathieu.mynews.R;
 import com.romain.mathieu.mynews.model.API.TopStories.NYTAPITopstories;
 import com.romain.mathieu.mynews.model.CardData;
 import com.romain.mathieu.mynews.model.NYTStreams;
+import com.romain.mathieu.mynews.model.ReformatDate;
 import com.romain.mathieu.mynews.utils.MyConstant;
 import com.romain.mathieu.mynews.view.MyAdapter;
 
@@ -157,12 +158,10 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
             }
             String articleURL = response.getResults().get(i).getUrl();
             String date = response.getResults().get(i).getCreatedDate();
-            date = date.replace("T", " - ");
-            date = date.replace("+0000", "");
             list.add(new CardData(
                     section1 + " > " + section2,
                     subTitle + "",
-                    date + "",
+                    ReformatDate.returnBetterDateTop(date) + "",
                     imageURL + "",
                     articleURL + ""));
         }

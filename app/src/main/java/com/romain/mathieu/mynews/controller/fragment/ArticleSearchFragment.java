@@ -22,6 +22,7 @@ import com.romain.mathieu.mynews.R;
 import com.romain.mathieu.mynews.model.API.ArticleSearch.NYTAPIArticleSearch;
 import com.romain.mathieu.mynews.model.CardData;
 import com.romain.mathieu.mynews.model.NYTStreams;
+import com.romain.mathieu.mynews.model.ReformatDate;
 import com.romain.mathieu.mynews.utils.MyConstant;
 import com.romain.mathieu.mynews.view.MyAdapter;
 
@@ -110,7 +111,7 @@ public class ArticleSearchFragment extends Fragment implements SwipeRefreshLayou
 
         // 1.2 - Execute the stream subscribing to Observable defined inside GithubStream
         // To change the section, change section variable value below => (0 = world [...] 25 = home)
-        int section = 5;
+        int section = 25;
         this.disposable = NYTStreams.streamFetchArticle(MyConstant.API_KEY, MyConstant.GET_SECTION_TOP(section), "newest").subscribeWith(
                 new DisposableObserver<NYTAPIArticleSearch>() {
                     @Override
@@ -158,12 +159,10 @@ public class ArticleSearchFragment extends Fragment implements SwipeRefreshLayou
             }
             String articleURL = response.getResponse().getDocs().get(i).getWebUrl();
             String date = response.getResponse().getDocs().get(i).getPubDate();
-            date = date.replace("T", " - ");
-            date = date.replace("+0000", "");
             list.add(new CardData(
                     section + "",
                     title + "",
-                    date + "",
+                    ReformatDate.returnBetterDateSearch(date) + "",
                     "https://www.nytimes.com/" + imageURL,
                     articleURL + ""));
         }
