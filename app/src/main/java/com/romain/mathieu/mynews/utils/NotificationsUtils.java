@@ -60,7 +60,7 @@ public class NotificationsUtils extends ContextWrapper {
                 .setVibrate(v)
                 .setLights(Color.RED, 3000, 3000)
                 .setSound(uri)
-                .setSmallIcon(R.drawable.ic_stat_new_message);
+                .setSmallIcon(R.drawable.ic_import_contacts_black_24dp);
     }
 
 }
