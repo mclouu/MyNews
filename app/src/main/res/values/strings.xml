@@ -11,6 +11,7 @@
     <string name="NEWS">News</string>
     <string name="EMPTY">Empty</string>
     <string name="TOPSTORIES">TopStories</string>
+    <string name="MOSTPOPULAR">MostPopular</string>
     <string name="error_network">Network error</string>
     <string name="search">Search</string>
     <string name="search_query_term">*Search Query term</string>
@@ -42,4 +43,7 @@
     <string name="notif_on">Notification enable</string>
     <string name="notif_off">Notification disable</string>
     <string name="msg_categorie_is_not_checked">You did not choose any category.</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
