@@ -4,9 +4,9 @@
 
 package com.romain.mathieu.mynews.controller.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,14 +14,17 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.facebook.stetho.Stetho;
 import com.romain.mathieu.mynews.R;
 import com.romain.mathieu.mynews.controller.fragment.MostPopularFragment;
+import com.romain.mathieu.mynews.controller.fragment.TopStoriesPageFragment;
 import com.romain.mathieu.mynews.utils.MyConstant;
 import com.romain.mathieu.mynews.view.PageAdapter;
 
@@ -32,18 +35,16 @@ import static com.romain.mathieu.mynews.utils.MyConstant.BUNDLED_EXTRA;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+    @BindView(R.id.nav_view)
+    NavigationView mNavigationView;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.activity_main_viewpager)
     ViewPager pager;
     @BindView(R.id.activity_main_tabs)
     TabLayout tabs;
-
-    private Fragment fragmentTopStories;
-    private Fragment fragmentMostPopular;
-
-    public static final int FRAGMENT_TOPSTORIES = 0;
-    public static final int FRAGMENT_MOSTPOPULAR = 1;
 
 
     @Override
@@ -56,13 +57,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setSupportActionBar(toolbar);
         setTitle("My News");
-        this.configureViewPagerAndTabs();
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+
+        mNavigationView.setNavigationItemSelectedListener(this);
+
+        this.configureViewPagerAndTabs();
     }
 
 
@@ -89,12 +94,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+        // 6 - Show fragment after user clicked on a menu item
+        switch (id) {
+            case R.id.top_stories:
+                pager.setCurrentItem(0);
+                break;
+            case R.id.most_popular:
+                pager.setCurrentItem(1);
+                break;
+            case R.id.technologie:
+                pager.setCurrentItem(3);
+                break;
+
+            case R.id.drawer_notif:
+                this.onNotifSelected();
+                break;
+            case R.id.drawer_help:
+                this.onHelpSelected();
+                break;
+            case R.id.drawer_about:
+                this.onAboutSelected();
+                break;
+        }
+
+        this.drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 
 
@@ -113,87 +148,66 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id) {
             case R.id.menu_notif:
-                Intent myIntentNotif = new Intent(MainActivity.this, SearchAndNotifyActivity.class);
-                myIntentNotif.putExtra(BUNDLED_EXTRA, MyConstant.NOTIF_ID);
-                this.startActivity(myIntentNotif);
+                this.onNotifSelected();
                 return true;
             case R.id.menu_help:
-
+                this.onHelpSelected();
                 return true;
             case R.id.menu_about:
-
+                this.onAboutSelected();
                 return true;
             case R.id.menu_search:
-                Intent myIntentSearch = new Intent(MainActivity.this, SearchAndNotifyActivity.class);
-                myIntentSearch.putExtra(BUNDLED_EXTRA, MyConstant.SEARCH_ID);
-                this.startActivity(myIntentSearch);
+                this.onSearchSelected();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-
-    //-------------
-    // NAVIGATION DRAWER 2
-    //-------------
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        // 6 - Show fragment after user clicked on a menu item
-        if (id == R.id.top_stories) {
-            this.showFragment(FRAGMENT_TOPSTORIES);
-
-        } else if (id == R.id.most_popular) {
-            this.showFragment(FRAGMENT_MOSTPOPULAR);
-
-        }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+    public void onSearchSelected() {
+        Intent myIntentSearch = new Intent(MainActivity.this, SearchAndNotifyActivity.class);
+        myIntentSearch.putExtra(BUNDLED_EXTRA, MyConstant.SEARCH_ID);
+        this.startActivity(myIntentSearch);
     }
 
-    // ---------------------
-    // FRAGMENTS
-    // ---------------------
-
-    // 5 - Show fragment according an Identifier
-
-    private void showFragment(int fragmentIdentifier) {
-        switch (fragmentIdentifier) {
-            case FRAGMENT_TOPSTORIES:
-                this.showTopFragment();
-                break;
-            case FRAGMENT_MOSTPOPULAR:
-                this.showMostFragment();
-                break;
-            default:
-                break;
-        }
+    public void onNotifSelected() {
+        Intent myIntentNotif = new Intent(MainActivity.this, SearchAndNotifyActivity.class);
+        myIntentNotif.putExtra(BUNDLED_EXTRA, MyConstant.NOTIF_ID);
+        this.startActivity(myIntentNotif);
     }
 
-    // 4 - Create each fragment page and show it
+    public void onHelpSelected() {
+        // Build an AlertDialog for the About section
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        // Set Title and Message content
+        builder.setTitle("tdb");
+        builder.setMessage("mdlol");
+        // Neutral button
+        builder.setNeutralButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
 
-    private void showTopFragment() {
-        if (this.fragmentTopStories == null)
-            this.fragmentTopStories = MostPopularFragment.newInstance();
-        this.startTransactionFragment(this.fragmentTopStories);
+        builder.show();
+
     }
 
-    private void showMostFragment() {
-        if (this.fragmentMostPopular == null)
-            this.fragmentMostPopular = MostPopularFragment.newInstance();
-        this.startTransactionFragment(this.fragmentMostPopular);
-    }
+    public void onAboutSelected() {
+        // Build an AlertDialog for the About section
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        // Set Title and Message content
+        builder.setTitle("tdb");
+        builder.setMessage("mdlol");
+        // Neutral button
+        builder.setNeutralButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
 
-    // 3 - Generic method that will replace and show a fragment inside the MainActivity Frame Layout
+        builder.show();
 
-    private void startTransactionFragment(Fragment fragment) {
-        if (!fragment.isVisible()) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.activity_main_frame_layout, fragment).commit();
-        }
     }
 }
