@@ -6,27 +6,29 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/top_stories"
-            android:title="@string/TOPSTORIES" />
+            android:title="@string/TOPSTORIES2" />
 
         <item
             android:id="@+id/most_popular"
-            android:title="@string/MOSTPOPULAR" />
+            android:title="@string/MOSTPOPULAR2" />
         <item
-            android:id="@+id/pets"
-            android:title="@string/search_box1" />
-        <item
-            android:id="@+id/mounts"
-            android:title="@string/search_box2" />
+            android:id="@+id/technologie"
+            android:title="@string/search_box6" />
     </group>
 
-    <item android:title="Communicate">
+
+
+    <item android:title="@string/app_name">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:title="Share" />
+                android:id="@+id/drawer_notif"
+                android:title="@string/notif" />
             <item
-                android:id="@+id/nav_send"
-                android:title="Send" />
+                android:id="@+id/drawer_help"
+                android:title="@string/Help" />
+            <item
+                android:id="@+id/drawer_about"
+                android:title="@string/about" />
         </menu>
     </item>
 
