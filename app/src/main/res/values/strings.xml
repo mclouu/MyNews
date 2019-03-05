@@ -11,7 +11,9 @@
     <string name="NEWS">News</string>
     <string name="EMPTY">Empty</string>
     <string name="TOPSTORIES">TopStories</string>
+    <string name="TOPSTORIES2">Top stories</string>
     <string name="MOSTPOPULAR">MostPopular</string>
+    <string name="MOSTPOPULAR2">Most popular</string>
     <string name="error_network">Network error</string>
     <string name="search">Search</string>
     <string name="search_query_term">*Search Query term</string>

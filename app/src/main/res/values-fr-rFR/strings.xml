@@ -9,7 +9,9 @@
     <string name="NEWS">Nouvelle</string>
     <string name="EMPTY">Vide</string>
     <string name="TOPSTORIES">TopStories</string>
+    <string name="TOPSTORIES2">Top articles</string>
     <string name="MOSTPOPULAR">MostPopular</string>
+    <string name="MOSTPOPULAR2">Populaire</string>
     <string name="error_network">Problème de réseau</string>
     <string name="search">Recherche</string>
     <string name="search_query_term">*Recherche</string>
