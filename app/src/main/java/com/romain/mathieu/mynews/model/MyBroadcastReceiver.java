@@ -52,7 +52,6 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         fqueryResult = fqueryResult + ")";
 
         this.executeHttpRequest(context);
-        disposeWhenDestroy();
     }
 
     private void executeHttpRequest(final Context context) {
@@ -88,9 +87,5 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         NotificationsUtils notificationHelper = new NotificationsUtils(context);
         NotificationCompat.Builder nb = notificationHelper.getChannelNotification("MyNews", messageNotif);
         notificationHelper.getManager().notify(1, nb.build());
-    }
-
-    private void disposeWhenDestroy() {
-        if (this.disposable != null && !this.disposable.isDisposed()) this.disposable.dispose();
     }
 }
