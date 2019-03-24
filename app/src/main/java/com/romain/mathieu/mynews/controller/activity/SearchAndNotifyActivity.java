@@ -33,6 +33,7 @@ import com.romain.mathieu.mynews.view.MyAdapter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -91,6 +92,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     private Disposable disposable;
     private String query, fquery;
     private String mBeginDate, mEndDate;
+    public static List<Boolean> listBooleanBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +123,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
                 this.OnClickEndDateListener();
                 this.addListenerEditTextSearch();
 
+
                 switchNotif.setVisibility(View.GONE);
                 break;
             case NOTIF_ID:
@@ -128,6 +131,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
                 this.OnCheckChangeListenerSwitch();
                 this.addListenerEditTextSearch();
                 this.getSharedPref();
+
 
                 this.addListenerOnCheckBoxNotifActivity(checkBox_Art);
                 this.addListenerOnCheckBoxNotifActivity(checkBox_business);
@@ -182,16 +186,19 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SharedPreferencesUtils.SaveNotificationBoxArts(SearchAndNotifyActivity.this, checkBox_Art.isChecked());
-                SharedPreferencesUtils.SaveNotificationBoxBusiness(SearchAndNotifyActivity.this, checkBox_business.isChecked());
-                SharedPreferencesUtils.SaveNotificationBoxCulture(SearchAndNotifyActivity.this, checkBox_culture.isChecked());
-                SharedPreferencesUtils.SaveNotificationBoxWorld(SearchAndNotifyActivity.this, checkBox_world.isChecked());
 
-                SharedPreferencesUtils.SaveNotificationBoxPolitic(SearchAndNotifyActivity.this, checkBox_Politics.isChecked());
-                SharedPreferencesUtils.SaveNotificationBoxScience(SearchAndNotifyActivity.this, checkBox_science.isChecked());
-                SharedPreferencesUtils.SaveNotificationBoxTechnologie(SearchAndNotifyActivity.this, checkBox_technology.isChecked());
-                SharedPreferencesUtils.SaveNotificationBoxMovies(SearchAndNotifyActivity.this, checkBox_movies.isChecked());
+                listBooleanBox = new ArrayList<>();
+                listBooleanBox.add(checkBox_Art.isChecked());
+                listBooleanBox.add(checkBox_business.isChecked());
+                listBooleanBox.add(checkBox_culture.isChecked());
+                listBooleanBox.add(checkBox_world.isChecked());
 
+                listBooleanBox.add(checkBox_Politics.isChecked());
+                listBooleanBox.add(checkBox_science.isChecked());
+                listBooleanBox.add(checkBox_technology.isChecked());
+                listBooleanBox.add(checkBox_movies.isChecked());
+
+                SharedPreferencesUtils.SaveArrayList(SearchAndNotifyActivity.this);
             }
         });
     }
@@ -217,7 +224,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-    } // TODO: 27/01/2019 comprendre ceci
+    }
 
     private boolean isQueryTermEditTextEmpty() {
         return !query.isEmpty();
@@ -228,7 +235,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     // ---------------------------------------------------------
 
     public void onClickButton(View view) {
-        if (isCheckBoxChecked()){
+        if (isCheckBoxChecked()) {
             Intent myIntent = new Intent(SearchAndNotifyActivity.this, ResultSearch.class);
             myIntent.putExtra("QUERY", query); //Optional parameters
             myIntent.putExtra("FQUERY", fquery);
@@ -342,15 +349,21 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
 
         search_query.setText(SharedPreferencesUtils.getNotificationQuery(SearchAndNotifyActivity.this));
 
-        checkBox_Art.setChecked(SharedPreferencesUtils.getNotificationBoxArts(SearchAndNotifyActivity.this));
-        checkBox_business.setChecked(SharedPreferencesUtils.getNotificationBoxBusiness(SearchAndNotifyActivity.this));
-        checkBox_culture.setChecked(SharedPreferencesUtils.getNotificationBoxCulture(SearchAndNotifyActivity.this));
-        checkBox_world.setChecked(SharedPreferencesUtils.getNotificationBoxWorlde(SearchAndNotifyActivity.this));
 
-        checkBox_Politics.setChecked(SharedPreferencesUtils.getNotificationBoxPolitic(SearchAndNotifyActivity.this));
-        checkBox_science.setChecked(SharedPreferencesUtils.getNotificationBoxScience(SearchAndNotifyActivity.this));
-        checkBox_technology.setChecked(SharedPreferencesUtils.getNotificationBoxTechnologie(SearchAndNotifyActivity.this));
-        checkBox_movies.setChecked(SharedPreferencesUtils.getNotificationBoxMovies(SearchAndNotifyActivity.this));
+        // If in my sharedPreferences there is an arrayList of saved, then I recover the values
+        if (SharedPreferencesUtils.containsArrayList(this)) {
+
+            checkBox_Art.setChecked(SharedPreferencesUtils.getArrayList(SearchAndNotifyActivity.this).get(0));
+            checkBox_business.setChecked(SharedPreferencesUtils.getArrayList(SearchAndNotifyActivity.this).get(1));
+            checkBox_culture.setChecked(SharedPreferencesUtils.getArrayList(SearchAndNotifyActivity.this).get(2));
+            checkBox_world.setChecked(SharedPreferencesUtils.getArrayList(SearchAndNotifyActivity.this).get(3));
+
+            checkBox_Politics.setChecked(SharedPreferencesUtils.getArrayList(SearchAndNotifyActivity.this).get(4));
+            checkBox_science.setChecked(SharedPreferencesUtils.getArrayList(SearchAndNotifyActivity.this).get(5));
+            checkBox_technology.setChecked(SharedPreferencesUtils.getArrayList(SearchAndNotifyActivity.this).get(6));
+            checkBox_movies.setChecked(SharedPreferencesUtils.getArrayList(SearchAndNotifyActivity.this).get(7));
+        }
+
     }
     // ---------------------------------------------------------
     // ALARM RECEIVER
@@ -362,13 +375,15 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         PendingIntent pendingIntent;
         MyConstant myConstant = new MyConstant();
 
+        Log.e("tdb", "alarmReceiver");
+
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, MyBroadcastReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-//        calendar.set(Calendar.HOUR_OF_DAY, myConstant.heures);
+//        calendar.set(Calendar.HOUR_OF_DAY, myConstant.hour);
 //        calendar.set(Calendar.MINUTE, myConstant.minutes);
         calendar.set(Calendar.SECOND, myConstant.secondes);
 

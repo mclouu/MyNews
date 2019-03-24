@@ -28,31 +28,34 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        Log.e("tdb", "onReceive");
+
         queryResult = SharedPreferencesUtils.getNotificationQuery(context);
 
         fqueryResult = "news_desk:(";
 
-        if (SharedPreferencesUtils.getNotificationBoxArts(context))
+        // TODO TDD !
+
+        if (SharedPreferencesUtils.getArrayList(context).get(0))
             fqueryResult = fqueryResult + "\"Arts\"";
-        if (SharedPreferencesUtils.getNotificationBoxBusiness(context))
+        if (SharedPreferencesUtils.getArrayList(context).get(1))
             fqueryResult = fqueryResult + "\"Business\"";
-        if (SharedPreferencesUtils.getNotificationBoxCulture(context))
+        if (SharedPreferencesUtils.getArrayList(context).get(2))
             fqueryResult = fqueryResult + "\"Culture\"";
-        if (SharedPreferencesUtils.getNotificationBoxWorlde(context))
+        if (SharedPreferencesUtils.getArrayList(context).get(3))
             fqueryResult = fqueryResult + "\"World\"";
-        if (SharedPreferencesUtils.getNotificationBoxPolitic(context))
+        if (SharedPreferencesUtils.getArrayList(context).get(4))
             fqueryResult = fqueryResult + "\"Politics\"";
-        if (SharedPreferencesUtils.getNotificationBoxScience(context))
+        if (SharedPreferencesUtils.getArrayList(context).get(5))
             fqueryResult = fqueryResult + "\"Science\"";
-        if (SharedPreferencesUtils.getNotificationBoxTechnologie(context))
+        if (SharedPreferencesUtils.getArrayList(context).get(6))
             fqueryResult = fqueryResult + "\"Technology\"";
-        if (SharedPreferencesUtils.getNotificationBoxMovies(context))
+        if (SharedPreferencesUtils.getArrayList(context).get(7))
             fqueryResult = fqueryResult + "\"Movies\"";
         if (fqueryResult.contains("\"\"")) fqueryResult = fqueryResult.replace("\"\"", "\" \"");
         fqueryResult = fqueryResult + ")";
 
         this.executeHttpRequest(context);
-        disposeWhenDestroy();
     }
 
     private void executeHttpRequest(final Context context) {
@@ -66,6 +69,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                     public void onNext(NYTAPIArticleSearch section) {
                         messageNotif = "Vous avez " + returnTheNumberOfItemsFound(section) + " articles correspondants à vos derniers critères. ";
                         send(context);
+                        Log.e("tdb", "request ok !");
 
                     }
 
@@ -81,16 +85,12 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
 
     private int returnTheNumberOfItemsFound(NYTAPIArticleSearch response) {
         List articles = response.getResponse().getDocs();
-        return  articles.size();
+        return articles.size();
     }
 
     private void send(Context context) {
         NotificationsUtils notificationHelper = new NotificationsUtils(context);
         NotificationCompat.Builder nb = notificationHelper.getChannelNotification("MyNews", messageNotif);
         notificationHelper.getManager().notify(1, nb.build());
-    }
-
-    private void disposeWhenDestroy() {
-        if (this.disposable != null && !this.disposable.isDisposed()) this.disposable.dispose();
     }
 }

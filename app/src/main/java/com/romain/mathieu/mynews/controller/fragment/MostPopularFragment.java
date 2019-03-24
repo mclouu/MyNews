@@ -147,7 +147,7 @@ public class MostPopularFragment extends Fragment implements SwipeRefreshLayout.
             list.clear();
         }
 
-        int num_results = 19;
+        int num_results = response.getNumResults();
         for (int i = 0; i < num_results; i++) {
             String section1 = response.getResults().get(i).getSection();
             String title = response.getResults().get(i).getTitle();
