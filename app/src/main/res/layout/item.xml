@@ -15,15 +15,6 @@
         android:layout_margin="8dp"
         android:background="@color/colorAccent" />
 
-    <ImageView
-        android:id="@+id/is_view"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="8dp"
-        android:src="@drawable/ic_remove_red_eye_black_24dp"
-        android:visibility="gone" />
-
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
