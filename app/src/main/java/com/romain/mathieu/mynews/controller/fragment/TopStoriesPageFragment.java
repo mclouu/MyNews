@@ -47,7 +47,6 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
     private LinearLayoutManager llm;
     private MyAdapter adapter;
     private Disposable disposable;
-    MyConstant constant = new MyConstant();
 
     public TopStoriesPageFragment() {
         // Required empty public constructor
@@ -151,6 +150,7 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
             String section2 = response.getResults().get(i).getSection();
             String subTitle = response.getResults().get(i).getAbstract();
             String imageURL;
+
             if (response.getResults().get(i).getMultimedia().isEmpty()) {
                 imageURL = "https://image.noelshack.com/fichiers/2018/17/7/1524955130-empty-image-thumb2.png";
             } else {
@@ -158,6 +158,8 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
             }
             String articleURL = response.getResults().get(i).getUrl();
             String date = response.getResults().get(i).getCreatedDate();
+
+
             list.add(new CardData(
                     section1 + " > " + section2,
                     subTitle + "",
