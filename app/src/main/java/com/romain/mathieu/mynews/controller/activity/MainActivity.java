@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -17,14 +16,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.facebook.stetho.Stetho;
 import com.romain.mathieu.mynews.R;
-import com.romain.mathieu.mynews.controller.fragment.MostPopularFragment;
-import com.romain.mathieu.mynews.controller.fragment.TopStoriesPageFragment;
 import com.romain.mathieu.mynews.utils.MyConstant;
 import com.romain.mathieu.mynews.view.PageAdapter;
 
@@ -179,10 +175,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Build an AlertDialog for the About section
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         // Set Title and Message content
-        builder.setTitle("tdb");
-        builder.setMessage("mdlol");
+        builder.setTitle("Help");
+        builder.setMessage("Empty");
         // Neutral button
-        builder.setNeutralButton("ok", new DialogInterface.OnClickListener() {
+        builder.setNeutralButton("ok !", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
@@ -197,10 +193,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Build an AlertDialog for the About section
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         // Set Title and Message content
-        builder.setTitle("tdb");
-        builder.setMessage("mdlol");
+        builder.setTitle("About");
+        builder.setMessage("Empty");
         // Neutral button
-        builder.setNeutralButton("ok", new DialogInterface.OnClickListener() {
+        builder.setNeutralButton("ok !", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
