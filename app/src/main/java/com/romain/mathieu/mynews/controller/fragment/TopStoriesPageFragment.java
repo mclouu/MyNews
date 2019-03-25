@@ -109,7 +109,7 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
 
         // 1.2 - Execute the stream subscribing to Observable defined inside GithubStream
         // To change the section, change section variable value below => (0 = world [...] 25 = home)
-        int section = 0;
+        int section = 25;
         this.disposable = NYTStreams.streamFetchTop(MyConstant.GET_SECTION_TOP(section), MyConstant.API_KEY).subscribeWith(
                 new DisposableObserver<NYTAPITopstories>() {
                     @Override
