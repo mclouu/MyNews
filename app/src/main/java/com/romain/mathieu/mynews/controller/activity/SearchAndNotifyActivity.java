@@ -394,17 +394,18 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         AlarmManager alarmManager;
         PendingIntent pendingIntent;
         MyConstant myConstant = new MyConstant();
+        Calendar calendar = Calendar.getInstance();
 
 
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, MyBroadcastReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
-        Calendar calendar = Calendar.getInstance();
+
         calendar.setTimeInMillis(System.currentTimeMillis());
-//        calendar.set(Calendar.HOUR_OF_DAY, myConstant.hour);
-//        calendar.set(Calendar.MINUTE, myConstant.minutes);
-        calendar.set(Calendar.SECOND, myConstant.secondes);
+        calendar.set(Calendar.HOUR_OF_DAY, MyConstant.hour);
+        calendar.set(Calendar.MINUTE, MyConstant.minutes);
+        calendar.set(Calendar.SECOND, MyConstant.secondes);
 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 

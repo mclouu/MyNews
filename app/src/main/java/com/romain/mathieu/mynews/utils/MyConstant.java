@@ -21,9 +21,9 @@ public class MyConstant {
     public String BASE_URL = "http://api.nytimes.com/"; // http://api.nytimes.com/svc/topstories/v2/world.json?api-key=e5ace90626ec4c7495500a0dbb327980
     public static String API_KEY = "603VoqkXe4T0cL2iwBnuUndaTW7vBz5G";
 
-    public int hour = 17;
-    public int minutes = 27;
-    public int secondes = 5;
+    public static int hour = 12;
+    public static int minutes = 0;
+    public static int secondes = 0;
 
     public static String GET_SECTION_TOP(int section) {
         Hashtable<Integer, String> category = new Hashtable<>();
