@@ -87,9 +87,11 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
         this.disposeWhenDestroy();
     }
 
-    //-----------------------
-    // PULL TO REFRESH
-    //-----------------------
+    //-----------------------------------||
+    //                                   ||
+    //          PULL TO REFRESH          ||
+    //                                   ||
+    //-----------------------------------||
 
     @Override
     public void onRefresh() {
@@ -100,9 +102,11 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
 
     }
 
-    //-----------------------
-    //  HTTP (RxJAVA)
-    //-----------------------
+    //-----------------------------------||
+    //                                   ||
+    //          HTTP (RxJava)            ||
+    //                                   ||
+    //-----------------------------------||
 
     // 1 - Execute our Stream
     private void executeHttpRequestWithRetrofit() {
@@ -135,9 +139,11 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
         if (this.disposable != null && !this.disposable.isDisposed()) this.disposable.dispose();
     }
 
-    // -------------------
-    // UPDATE UI
-    // -------------------
+    //-----------------------------------||
+    //                                   ||
+    //             UPDATE UI             ||
+    //                                   ||
+    //-----------------------------------||
     private void updateUIWithListOfArticle(NYTAPITopstories response) {
 
         if (list != null) {

@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import com.romain.mathieu.mynews.model.API.ArticleSearch.NYTAPIArticleSearch;
 import com.romain.mathieu.mynews.utils.MyConstant;
@@ -28,13 +27,11 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Log.e("tdb", "onReceive");
-
+        // get query
         queryResult = SharedPreferencesUtils.getNotificationQuery(context);
 
+        // get fQuery
         fqueryResult = "news_desk:(";
-
-        // TODO TDD !
 
         if (SharedPreferencesUtils.getArrayList(context).get(0))
             fqueryResult = fqueryResult + "\"Arts\"";
@@ -69,7 +66,6 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                     public void onNext(NYTAPIArticleSearch section) {
                         messageNotif = "Vous avez " + returnTheNumberOfItemsFound(section) + " articles correspondants à vos derniers critères. ";
                         send(context);
-                        Log.e("tdb", "request ok !");
 
                     }
 

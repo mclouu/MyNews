@@ -67,9 +67,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    //-------------
-    // VIEW PAGER
-    //-------------
+    //-----------------------------------||
+    //          VIEW PAGER               ||
+    //                                   ||
+    //                                   ||
+    //-----------------------------------||
 
     private void configureViewPagerAndTabs() {
 
@@ -84,9 +86,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabs.setTabMode(TabLayout.MODE_FIXED);
     }
 
-    //-------------
-    // NAVIGATION DRAWER
-    //-------------
+    //-----------------------------------||
+    //          NAVIGATION DRAWER        ||
+    //                                   ||
+    //                                   ||
+    //-----------------------------------||
 
     @Override
     public void onBackPressed() {
@@ -129,9 +133,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    //------------
-    // MENU
-    //------------
+    //-----------------------------------||
+    //                                   ||
+    //              MENU                 ||
+    //                                   ||
+    //-----------------------------------||
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);

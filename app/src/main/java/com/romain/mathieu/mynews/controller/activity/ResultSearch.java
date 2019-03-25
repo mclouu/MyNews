@@ -76,9 +76,11 @@ public class ResultSearch extends AppCompatActivity implements SwipeRefreshLayou
 
     }
 
-    // ---------------------------------------------------------
-    // HTTP (RxJAVA & Retrofit)
-    // ---------------------------------------------------------
+    //-----------------------------------||
+    //                                   ||
+    //          HTTP (RxJava)            ||
+    //                                   ||
+    //-----------------------------------||
 
     private void executeHttpRequest() {
         String query = queryResult;

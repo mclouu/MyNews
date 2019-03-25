@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -109,9 +108,14 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
 
     }
 
-    // ---------------------------------------------------------
-    // CONFIGURE LAYOUT IF IT'S NOTIFICATION OR SEARCH WITH EXTRA AND SWITCH
-    // ---------------------------------------------------------
+
+    //---------------------------------------||
+    // CONFIGURE LAYOUT IF IT'S NOTIFICATION ||
+    //                  OR                   ||
+    //    SEARCH WITH EXTRA AND SWITCH       ||
+    //---------------------------------------||
+
+
     private void configureLayout() {
 
 
@@ -152,9 +156,12 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         }
     }
 
-    // ---------------------------------------------------------
-    // CHECKBOX IS CHECKED
-    // ---------------------------------------------------------
+    //---------------------------------------||
+    //               CHECKBOX                ||
+    //                  IS                   ||
+    //                CHECKED                ||
+    //---------------------------------------||
+
     public void onCheckboxClicked(View view) {
 
         fquery = "news_desk:(";
@@ -203,9 +210,13 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         });
     }
 
-    // ---------------------------------------------------------
-    // TEXT WATCHER ON THE EDIT TEXT
-    // ---------------------------------------------------------
+    //---------------------------------------||
+    //             TEXT WATCHER              ||
+    //                  ON                   ||
+    //               EDIT TEXT               ||
+    //---------------------------------------||
+
+
     private void addListenerEditTextSearch() {
         search_query.addTextChangedListener(new TextWatcher() {
             @Override
@@ -226,21 +237,19 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         });
     }
 
-    private boolean isQueryTermEditTextEmpty() {
-        return !query.isEmpty();
-    }
 
-    // ---------------------------------------------------------
-    // ON CLICK BUTTON
-    // ---------------------------------------------------------
-
+    //------------------------------||
+    //            ONCLICK           ||
+    //            BUTTON            ||
+    //                              ||
+    //------------------------------||
     public void onClickButton(View view) {
         if (isCheckBoxChecked()) {
             Intent myIntent = new Intent(SearchAndNotifyActivity.this, ResultSearch.class);
             myIntent.putExtra("QUERY", query); //Optional parameters
             myIntent.putExtra("FQUERY", fquery);
-            myIntent.putExtra("DATE_DEBUT", mBeginDate);
-            myIntent.putExtra("DATE_END", mEndDate);
+            myIntent.putExtra("DATE_DEBUT", mBeginDate); //Optional parameters
+            myIntent.putExtra("DATE_END", mEndDate); //Optional parameters
             this.startActivity(myIntent);
         } else {
             Toast.makeText(this, getString(R.string.msg_categorie_is_not_checked), Toast.LENGTH_SHORT).show();
@@ -248,9 +257,13 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
 
     }
 
-    // ---------------------------------------------------------
-    // BEGIN AND END DATE : TextView Listener DatePicker + Label update
-    // ---------------------------------------------------------
+
+    //-----------------------------------||
+    //         BEGIN AND END DATE        ||
+    //      TextView Listener DatePicker ||
+    //              Label update         ||
+    //-----------------------------------||
+
     public void OnClickBeginDateListener() {
         mCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -298,9 +311,10 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     }
 
     public void updateBeginDateLabel() {
-        String mFormat = "dd/MM/yyyy";
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat(mFormat, Locale.US);
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyyMMdd");
+        String mFormatDisplay = "dd/MM/yyyy";
+        String mFormatRequest = "yyyyMMdd";
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat(mFormatDisplay, Locale.US);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat(mFormatRequest);
 
         datedebut.setText(simpleDateFormat.format(mCalendar.getTime()));
         mBeginDate = simpleDateFormat2.format(mCalendar.getTime());
@@ -315,9 +329,13 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         mEndDate = simpleDateFormat2.format(mCalendar.getTime());
     }
 
-    // ---------------------------------------------------------
-    // SWITCH VIEW + SAVE IN SHAREDPREFERENCES
-    // ---------------------------------------------------------
+    //------------------------------||
+    //         SWITCH VIEW          ||
+    //           SAVE IN            ||
+    //               +              ||
+    //       SHAREDPREFERENCES      ||
+    //------------------------------||
+
     public void OnCheckChangeListenerSwitch() {
         switchNotif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -365,9 +383,11 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         }
 
     }
-    // ---------------------------------------------------------
-    // ALARM RECEIVER
-    // ---------------------------------------------------------
+    //------------------------------||
+    //            ALARM             ||
+    //           RECEIVER           ||
+    //                              ||
+    //------------------------------||
 
     private void alarmReceiver(Context context) {
 
@@ -375,7 +395,6 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         PendingIntent pendingIntent;
         MyConstant myConstant = new MyConstant();
 
-        Log.e("tdb", "alarmReceiver");
 
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, MyBroadcastReceiver.class);
@@ -390,9 +409,11 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
     }
-    // ---------------------------------------------------------
-    // DESTROY
-    // ---------------------------------------------------------
+    //------------------------------||
+    //            END               ||
+    //          ACTIVITY            ||
+    //                              ||
+    //------------------------------||
 
     @Override
     public void onDestroy() {
