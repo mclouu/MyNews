@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -391,6 +392,8 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
 
     private void alarmReceiver(Context context) {
 
+        Log.e("TDB", "AlarmReceiver : normalment tu reçois la notif dans x seconde");
+
         AlarmManager alarmManager;
         PendingIntent pendingIntent;
         MyConstant myConstant = new MyConstant();
@@ -403,11 +406,11 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
 
 
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, MyConstant.hour);
-        calendar.set(Calendar.MINUTE, MyConstant.minutes);
-        calendar.set(Calendar.SECOND, MyConstant.secondes);
+//        calendar.set(Calendar.HOUR_OF_DAY, MyConstant.hour);
+//        calendar.set(Calendar.MINUTE, myConstant.minutes);
+        calendar.set(Calendar.SECOND, myConstant.secondes);
 
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pendingIntent);
 
     }
     //------------------------------||

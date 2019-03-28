@@ -132,7 +132,8 @@ public class TopStoriesPageFragment extends Fragment implements SwipeRefreshLayo
                     public void onComplete() {
                         progressBar.setVisibility(View.GONE);
                     }
-                });
+                }
+        );
     }
 
     private void disposeWhenDestroy() {
