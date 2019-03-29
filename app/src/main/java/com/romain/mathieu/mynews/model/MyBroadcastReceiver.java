@@ -27,8 +27,6 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
-        Log.e("TDB", "OnReceive : normalment tu reçois la notif dans 30sec");
         // get query
         queryResult = SharedPreferencesUtils.getNotificationQuery(context);
 
@@ -87,7 +85,6 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
     }
 
     private void send(Context context) {
-        Log.e("TDB", "send : notif envoyé");
         NotificationsUtils notificationHelper = new NotificationsUtils(context);
         NotificationCompat.Builder nb = notificationHelper.getChannelNotification("MyNews", messageNotif);
         notificationHelper.getManager().notify(1, nb.build());

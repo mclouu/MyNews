@@ -111,7 +111,7 @@ public class MostPopularFragment extends Fragment implements SwipeRefreshLayout.
         // 1.2 - Execute the stream subscribing to Observable defined inside GithubStream
         // To change the section, change section variable value below => (0 = all-sections [...] 35 = art)
         int section = 0;
-        this.disposable = NYTStreams.streamFetchMost(MyConstant.GET_SECTION_MOST(section), MyConstant.API_KEY).subscribeWith(
+        this.disposable = NYTStreams.streamFetchMost(MyConstant.getSectionMost(section), MyConstant.API_KEY).subscribeWith(
                 new DisposableObserver<NYTAPIMostPopular>() {
                     @Override
                     public void onNext(NYTAPIMostPopular section) {

@@ -10,7 +10,6 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.romain.mathieu.mynews.model.API.ArticleSearch.DocsItem;
 import com.romain.mathieu.mynews.model.API.ArticleSearch.NYTAPIArticleSearch;
-import com.romain.mathieu.mynews.model.API.ArticleSearch.Response;
 import com.romain.mathieu.mynews.model.NYTStreams;
 import com.romain.mathieu.mynews.utils.MyConstant;
 
@@ -47,7 +46,7 @@ public class ArticleSearchInstrumentedTest {
         int fQuery = 5;
         String sort = "newest";
         //1 - Get the stream
-        Observable<NYTAPIArticleSearch> observableArticleSearch = NYTStreams.streamFetchArticle(apiKey, MyConstant.GET_SECTION_TOP(fQuery), sort);
+        Observable<NYTAPIArticleSearch> observableArticleSearch = NYTStreams.streamFetchArticle(apiKey, MyConstant.getSectionTop(fQuery), sort);
 
         //2 - Create a new TestObserver
         TestObserver<NYTAPIArticleSearch> testObserver = new TestObserver<>();

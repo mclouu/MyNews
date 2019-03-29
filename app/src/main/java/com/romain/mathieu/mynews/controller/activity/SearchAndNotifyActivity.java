@@ -133,7 +133,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
                 break;
             case NOTIF_ID:
                 setTitle(R.string.notif);
-                this.OnCheckChangeListenerSwitch();
+                this.onCheckChangeListenerSwitch();
                 this.addListenerEditTextSearch();
                 this.getSharedPref();
 
@@ -179,7 +179,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         fquery = fquery + ")";
     }
 
-    private boolean isCheckBoxChecked() {
+    private boolean checkBoxChecked() {
         return checkBox_Art.isChecked() ||
                 checkBox_business.isChecked() ||
                 checkBox_culture.isChecked() ||
@@ -188,6 +188,13 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
                 checkBox_science.isChecked() ||
                 checkBox_technology.isChecked() ||
                 checkBox_movies.isChecked();
+    }
+
+    private boolean editTextIsEmpty() {
+
+        String sUsername = search_query.getText().toString();
+
+        return !sUsername.matches("");
     }
 
     private void addListenerOnCheckBoxNotifActivity(final CheckBox checkBox) {
@@ -206,7 +213,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
                 listBooleanBox.add(checkBox_technology.isChecked());
                 listBooleanBox.add(checkBox_movies.isChecked());
 
-                SharedPreferencesUtils.SaveArrayList(SearchAndNotifyActivity.this);
+                SharedPreferencesUtils.saveArrayList(SearchAndNotifyActivity.this);
             }
         });
     }
@@ -245,7 +252,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     //                              ||
     //------------------------------||
     public void onClickButton(View view) {
-        if (isCheckBoxChecked()) {
+        if (checkBoxChecked() & editTextIsEmpty()) {
             Intent myIntent = new Intent(SearchAndNotifyActivity.this, ResultSearch.class);
             myIntent.putExtra("QUERY", query); //Optional parameters
             myIntent.putExtra("FQUERY", fquery);
@@ -255,6 +262,12 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, getString(R.string.msg_categorie_is_not_checked), Toast.LENGTH_SHORT).show();
         }
+        if (editTextIsEmpty()) {
+            Log.e("TDB", "true");
+        } else {
+            Log.e("TDB", "false");
+        }
+
 
     }
 
@@ -337,15 +350,15 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
     //       SHAREDPREFERENCES      ||
     //------------------------------||
 
-    public void OnCheckChangeListenerSwitch() {
+    public void onCheckChangeListenerSwitch() {
         switchNotif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     alarmReceiver(SearchAndNotifyActivity.this);
-                    SharedPreferencesUtils.SaveNotificationSwitch(SearchAndNotifyActivity.this, true);
+                    SharedPreferencesUtils.saveNotificationSwitch(SearchAndNotifyActivity.this, true);
                     Toast.makeText(SearchAndNotifyActivity.this, getString(R.string.notif_on), Toast.LENGTH_SHORT).show();
                 } else {
-                    SharedPreferencesUtils.SaveNotificationSwitch(SearchAndNotifyActivity.this, false);
+                    SharedPreferencesUtils.saveNotificationSwitch(SearchAndNotifyActivity.this, false);
                     Toast.makeText(SearchAndNotifyActivity.this, getString(R.string.notif_off), Toast.LENGTH_SHORT).show();
                     checkBox_Art.setChecked(false);
                     checkBox_business.setChecked(false);
@@ -392,8 +405,6 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
 
     private void alarmReceiver(Context context) {
 
-        Log.e("TDB", "AlarmReceiver : normalment tu reçois la notif dans x seconde");
-
         AlarmManager alarmManager;
         PendingIntent pendingIntent;
         MyConstant myConstant = new MyConstant();
@@ -410,7 +421,7 @@ public class SearchAndNotifyActivity extends AppCompatActivity {
 //        calendar.set(Calendar.MINUTE, myConstant.minutes);
         calendar.set(Calendar.SECOND, myConstant.secondes);
 
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
     }
     //------------------------------||

@@ -112,7 +112,7 @@ public class ArticleSearchFragment extends Fragment implements SwipeRefreshLayou
         // 1.2 - Execute the stream subscribing to Observable defined inside GithubStream
         // To change the section, change section variable value below => (0 = world [...] 25 = home)
         int section = 5;
-        this.disposable = NYTStreams.streamFetchArticle(MyConstant.API_KEY, MyConstant.GET_SECTION_TOP(section), "newest").subscribeWith(
+        this.disposable = NYTStreams.streamFetchArticle(MyConstant.API_KEY, MyConstant.getSectionTop(section), "newest").subscribeWith(
                 new DisposableObserver<NYTAPIArticleSearch>() {
                     @Override
                     public void onNext(NYTAPIArticleSearch section) {

@@ -24,7 +24,7 @@ public class SharedPreferencesUtils {
     // - SAVE AN PRIMITIVE VARIABLE -
     // ------------------------------
 
-    public static void SaveNotificationSwitch(Context context, boolean MyVariableBool) {
+    public static void saveNotificationSwitch(Context context, boolean MyVariableBool) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(MyConstant.KEY_BOOL_SWITCH, MyVariableBool);
@@ -53,7 +53,7 @@ public class SharedPreferencesUtils {
     // ----------------------------
 
 
-    public static void SaveArrayList(Context context) {
+    public static void saveArrayList(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MY_FILE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();

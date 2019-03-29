@@ -25,7 +25,7 @@ public class MyConstant {
     public int minutes = 0;
     public int secondes = 5;
 
-    public static String GET_SECTION_TOP(int section) {
+    public static String getSectionTop(int section) {
         Hashtable<Integer, String> category = new Hashtable<>();
         category.put(25, "home");
         category.put(24, "arts");
@@ -57,7 +57,7 @@ public class MyConstant {
         return category.get(section);
     }
 
-    public static String GET_SECTION_MOST(int section) {
+    public static String getSectionMost(int section) {
         Hashtable<Integer, String> category = new Hashtable<>();
         category.put(35, "art");
         category.put(34, "Automobiles");

@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
     @BindView(R.id.nav_view)
-    NavigationView mNavigationView;
+    NavigationView navigationView_drawer;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.activity_main_viewpager)
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
 
-        mNavigationView.setNavigationItemSelectedListener(this);
+        navigationView_drawer.setNavigationItemSelectedListener(this);
 
         this.configureViewPagerAndTabs();
     }
